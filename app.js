@@ -12,8 +12,7 @@
   const STORAGE_KEY = 'ecomove:state:v1';
   const CREDITS_PER_KM = 10;            // US11 - Eco-Créditos proporcionales a km
   const CAR_CO2_PER_KM = 0.192;         // kg CO2 emitidos por un auto promedio / km
-  const SIM_SECONDS_PER_TICK = 60;      // aceleración de la simulación: 1 s real = 1 min de viaje
-                                        // (el cronómetro sigue siendo un setInterval real y en vivo)
+  const SIM_SECONDS_PER_TICK = 1;       // tiempo real: 1 s real = 1 s de viaje
 
   // US20 - Solo medios sostenibles: caminata, bicicleta, scooter eléctrico
   const TRANSPORT_MODES = {
@@ -1084,8 +1083,7 @@
     return '<div class="panel trip-tracker">' +
       '<span class="trip-tracker__status trip-tracker__status--' + st.cls + '">' + st.label + '</span>' +
       '<div class="trip-tracker__timer" id="trip-timer" aria-live="off">' + formatDuration(elapsed) + '</div>' +
-      '<p class="trip-tracker__mode-label">' + modeCfg.icon + ' ' + escapeHtml(modeCfg.label) +
-        (status !== 'idle' ? ' · <em>tiempo simulado acelerado</em>' : '') + '</p>' +
+      '<p class="trip-tracker__mode-label">' + modeCfg.icon + ' ' + escapeHtml(modeCfg.label) + '</p>' +
       '<div class="trip-tracker__live-stats">' +
         '<div class="stat"><span class="stat__value" id="trip-live-distance">' + distance.toFixed(2) +
           ' km</span><span class="stat__label">Distancia</span></div>' +
