@@ -1143,6 +1143,92 @@ body.app-open { overflow: hidden; }
 }
 
 /* =========================================================
+   CONSULTANT MEMBERSHIP (activación, badges, perfil, pago)
+   ========================================================= */
+/* Badge de estado discreto sobre Dashboard/Mapa/Reportes */
+.membership-strip { margin: 0 0 14px; }
+
+/* Pantalla de activación / bloqueo por vencimiento */
+.membership-gate {
+  max-width: 460px;
+  margin: 0 auto;
+}
+
+.membership-gate__head { text-align: center; }
+
+.membership-plan { text-align: center; }
+
+.membership-plan__name {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--dark);
+  margin: 12px 0 0;
+}
+
+.membership-plan__price {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 40px;
+  line-height: 1.1;
+  color: var(--jade-dark);
+  margin: 2px 0 14px;
+}
+
+.membership-plan__period {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray);
+}
+
+.membership-plan__list {
+  text-align: left;
+  margin: 4px 0 18px;
+}
+
+.membership-plan__list li { font-size: 13px; }
+
+.membership-plan__note {
+  font-size: 12px;
+  color: var(--gray);
+  line-height: 1.5;
+  margin: 12px 0 0;
+}
+
+/* Sección "Mi membresía" en Perfil (21) */
+.membership-profile__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+/* Filas etiqueta/valor (perfil y modal de pago) */
+.membership-rows {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+}
+
+.membership-rows li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--platinum);
+  font-size: 13px;
+  color: var(--gray);
+}
+
+.membership-rows strong {
+  font-family: var(--font-title);
+  color: var(--dark);
+  text-align: right;
+}
+
+/* =========================================================
    APP RESPONSIVE — mejoras en pantallas anchas (mobile-first)
    ========================================================= */
 @media (min-width: 560px) {
