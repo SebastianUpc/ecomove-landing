@@ -890,9 +890,11 @@ body {
 /* Chatbot simulado */
 .chatbot-fab {
   position: fixed;
-  bottom: 24px;
+  /* por encima de .app__nav (68px de alto); z-index mayor que .app (1000),
+     pero menor que modal (1200) y toast (1300) para no taparlos */
+  bottom: 84px;
   right: 24px;
-  z-index: 999;
+  z-index: 1100;
   width: 56px;
   height: 56px;
   border-radius: 50%;
@@ -912,9 +914,9 @@ body {
 
 .chatbot-panel {
   position: fixed;
-  bottom: 92px;
+  bottom: 152px;
   right: 24px;
-  z-index: 999;
+  z-index: 1100;
   width: 340px;
   max-height: 480px;
   display: flex;
@@ -1055,10 +1057,10 @@ body {
     right: 12px;
     left: 12px;
     width: auto;
-    bottom: 88px;
+    bottom: 148px;
   }
   .chatbot-fab {
-    bottom: 16px;
+    bottom: 84px;
     right: 16px;
   }
 }
