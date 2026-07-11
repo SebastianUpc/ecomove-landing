@@ -315,6 +315,7 @@ body {
 
 .frame-desktop {
   width: 1440px;
+  max-width: 100%;
 }
 
 .d-header {
@@ -803,6 +804,7 @@ body {
 
 .frame-mobile {
   width: 390px;
+  max-width: 100%;
 }
 
 .m-header {
@@ -932,4 +934,53 @@ body {
   background: var(--mint-bg);
   color: var(--jade-dark);
   border: 1px solid var(--mint);
+}
+
+.form-state[hidden] { display: none; }
+
+/* =========================================================
+   RESPONSIVE — media queries reales (mobile-first overrides)
+   El frame desktop deja de tener ancho fijo y refluye.
+   ========================================================= */
+
+/* Tablet / laptop pequeño */
+@media (max-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .section { padding: 48px 40px; }
+  .d-header { padding: 16px 40px; }
+  .d-nav { gap: 20px; }
+  .d-footer { padding: 44px 40px; flex-wrap: wrap; }
+  .footer-col { flex: 1 1 40%; }
+  .h-title { font-size: 34px; }
+}
+
+/* Tablet vertical / móvil grande */
+@media (max-width: 768px) {
+  .d-hero,
+  .split-block {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .grid-3,
+  .grid-4 { grid-template-columns: 1fr; }
+  .d-nav { display: none; }
+  .hero-stats { flex-wrap: wrap; gap: 20px; }
+  .h-title { font-size: 30px; }
+  .s-title { font-size: 24px; }
+  .section { padding: 40px 20px; }
+  .d-header { padding: 14px 20px; }
+  .btn-row { flex-direction: column; }
+  .btn-row .btn { width: 100%; }
+  .dashboard-stats { flex-wrap: wrap; gap: 20px; }
+  .d-footer { flex-direction: column; gap: 24px; padding: 32px 20px; }
+}
+
+/* Móvil */
+@media (max-width: 430px) {
+  body { padding: 20px 0 80px; }
+  .frame { border-radius: 0; }
+  .h-title { font-size: 26px; }
+  .s-title { font-size: 22px; }
+  .hero-stat strong { font-size: 18px; }
+  .section { padding: 32px 16px; }
 }
