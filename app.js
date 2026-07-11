@@ -1327,7 +1327,8 @@
     addCreditsEntry: addCreditsEntry, refreshCreditsPill: refreshCreditsPill,
     escapeHtml: escapeHtml, formatDate: formatDate, formatNumber: formatNumber,
     formatDuration: formatDuration, uid: uid, appActions: appActions,
-    TRANSPORT_MODES: TRANSPORT_MODES, membershipBadgeHtml: membershipBadgeHtml
+    TRANSPORT_MODES: TRANSPORT_MODES, membershipBadgeHtml: membershipBadgeHtml,
+    getProfile: function () { return currentProfile; }
   };
 
   if (document.readyState === 'loading') {

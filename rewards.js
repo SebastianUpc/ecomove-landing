@@ -238,4 +238,8 @@
   EM.appActions['filter-benefits'] = filterBenefits;
   EM.appActions['redeem-benefit']  = redeemBenefit;
   EM.appActions['confirm-redeem']  = confirmRedeem;
+
+  // Lectura pública del catálogo para módulos hermanos (chatbot)
+  EM.BENEFITS = BENEFITS;
+  EM.BENEFIT_CATEGORIES = BENEFIT_CATEGORIES;
 })();
