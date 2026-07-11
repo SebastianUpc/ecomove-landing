@@ -183,6 +183,7 @@
     const f = state.dashboard;
     const data = computeDashboard(f);
     container.innerHTML =
+      EM.membershipBadgeHtml() +
       viewHead('Consultor ambiental', 'Dashboard ambiental',
         'Métricas agregadas de movilidad sostenible para la toma de decisiones.') +
       kpisHtml(data, f) + trendsHtml(data) + tableHtml(data);
@@ -195,6 +196,7 @@
     const f = state.dashboard;
     const data = computeDashboard(f);
     container.innerHTML =
+      EM.membershipBadgeHtml() +
       viewHead('Consultor ambiental', 'Mapa de calor',
         'Filtra por zona, periodo y medio para explorar la intensidad de movilidad sostenible.') +
       filtersPanelHtml(f) + heatmapHtml(data);
@@ -207,6 +209,7 @@
     const f = state.dashboard;
     const data = computeDashboard(f);
     container.innerHTML =
+      EM.membershipBadgeHtml() +
       viewHead('Consultor ambiental', 'Reportes ambientales',
         'Genera reportes auditables con la selección de filtros actual y expórtalos.') +
       kpisHtml(data, f) +

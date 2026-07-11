@@ -756,6 +756,96 @@ body {
   color: rgba(255,255,255,0.85);
 }
 
+/* =========================================================
+   MEMBRESÍA CONSULTOR (plan único) — sección de pricing
+   Acento verde jade, fondo verde menta, badge amarillo pastel
+   ========================================================= */
+.pricing-section {
+  background: linear-gradient(180deg, var(--mint-bg) 0%, var(--white) 100%);
+}
+
+.pricing-card {
+  position: relative;
+  max-width: 460px;
+  margin: 24px auto 0;
+  background: var(--white);
+  border: 2px solid var(--jade);
+  border-radius: 20px;
+  padding: 40px 32px 32px;
+  text-align: center;
+  box-shadow: 0 18px 44px rgba(0, 122, 77, 0.16);
+}
+
+.pricing-card__badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: var(--yellow);
+  color: #6B5900;
+  font-family: var(--font-title);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 16px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(107, 89, 0, 0.15);
+}
+
+.pricing-card__name {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--dark);
+  margin: 0 0 6px;
+}
+
+.pricing-card__price {
+  margin-bottom: 8px;
+}
+
+.pricing-card__amount {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 1;
+  color: var(--jade-dark);
+}
+
+.pricing-card__period {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gray);
+}
+
+.pricing-card__note {
+  font-size: 12px;
+  color: var(--gray);
+  margin: 0 0 20px;
+}
+
+.pricing-card__list {
+  margin: 0 0 26px;
+  text-align: left;
+}
+
+.pricing-card__cta {
+  width: 100%;
+}
+
+.pricing-card__cta + .pricing-card__cta {
+  margin-top: 10px;
+}
+
+@media (max-width: 480px) {
+  .pricing-card {
+    padding: 36px 20px 24px;
+  }
+  .pricing-card__amount {
+    font-size: 40px;
+  }
+}
+
 /* Footer */
 .d-footer {
   display: flex;
