@@ -316,4 +316,7 @@
   EM.appActions['export-pdf'] = exportPdf;
   EM.appActions['export-excel'] = exportExcel;
   EM.appActions['share-report'] = shareReport;
+
+  // Lectura pública del dataset por zona para módulos hermanos (chatbot)
+  EM.DASH_ZONES = DASH_DATA;
 })();
