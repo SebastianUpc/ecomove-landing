@@ -37,7 +37,21 @@
   /* =======================================================
      CREDITS VIEW (US12 saldo, US14 historial de créditos)
      ======================================================= */
-  function renderCreditsView(container) {
+  // Vista combinada Recompensas = saldo/créditos (US12,US14) + catálogo/canje (US21-25)
+  function renderRewardsView(container) {
+    container.innerHTML =
+      '<header class="view-head">' +
+        '<span class="view-head__eyebrow">Recompensas</span>' +
+        '<h1 class="view-head__title">Recompensas</h1>' +
+        '<p class="view-head__subtitle">Tu saldo de Eco-Créditos y el catálogo de beneficios para canjear.</p>' +
+      '</header>' +
+      '<div id="rewards-credits"></div>' +
+      '<div id="rewards-benefits" style="margin-top:8px"></div>';
+    renderCreditsSection(document.getElementById('rewards-credits'));
+    renderBenefitsSection(document.getElementById('rewards-benefits'));
+  }
+
+  function renderCreditsSection(container) {
     const earned = state.credits.ledger
       .filter(function (e) { return e.type === 'earned'; })
       .reduce(function (s, e) { return s + e.amount; }, 0);
@@ -45,15 +59,8 @@
       .filter(function (e) { return e.type === 'redeemed'; })
       .reduce(function (s, e) { return s + e.amount; }, 0);
 
-    let html =
-      '<header class="view-head">' +
-        '<span class="view-head__eyebrow">Eco-Créditos</span>' +
-        '<h1 class="view-head__title">Tu saldo</h1>' +
-        '<p class="view-head__subtitle">Gana créditos con cada trayecto validado y cánjealos por beneficios.</p>' +
-      '</header>';
-
     // US12: saldo actual destacado
-    html +=
+    let html =
       '<div class="credits-hero">' +
         '<span class="credits-hero__icon" aria-hidden="true">★</span>' +
         '<span class="credits-hero__value">' + EM.formatNumber(state.credits.balance) + '</span>' +
@@ -69,9 +76,6 @@
         '<div class="stat"><span class="stat__value">' + state.credits.ledger.length +
           '</span><span class="stat__label">Movimientos</span></div>' +
       '</div>';
-
-    html += '<button class="app-btn app-btn--primary app-btn--block" type="button" ' +
-      'data-view="benefits" style="margin-bottom:18px">🎁 Ver catálogo de beneficios</button>';
 
     // US14: historial de Eco-Créditos (ledger)
     html += '<h2 class="panel__title">Historial de Eco-Créditos</h2>';
@@ -101,19 +105,8 @@
      BENEFITS VIEW (US21 catálogo, US22 filtro, US23 canje,
                     US24 confirmación, US25 historial)
      ======================================================= */
-  function renderBenefitsView(container) {
-    let html =
-      '<header class="view-head">' +
-        '<span class="view-head__eyebrow">Recompensas</span>' +
-        '<h1 class="view-head__title">Catálogo de beneficios</h1>' +
-        '<p class="view-head__subtitle">Canjea tus Eco-Créditos por recompensas reales de nuestros aliados.</p>' +
-      '</header>';
-
-    html +=
-      '<div class="credits-inline">' +
-        '<span aria-hidden="true">★</span> Saldo: <strong>' +
-        EM.formatNumber(state.credits.balance) + ' pts</strong>' +
-      '</div>';
+  function renderBenefitsSection(container) {
+    let html = '<h2 class="panel__title" style="margin-top:8px">Catálogo de beneficios</h2>';
 
     // US22: filtro por categoría
     html += '<div class="chip-filter" role="group" aria-label="Filtrar beneficios por categoría">';
@@ -176,7 +169,7 @@
   /* ---------- Actions ---------- */
   function filterBenefits(btn) {
     selectedCategory = btn.getAttribute('data-category');
-    EM.navigateTo('benefits');
+    EM.navigateTo('eco-rewards');
   }
 
   function redeemBenefit(btn) {              // US23
@@ -228,7 +221,7 @@
     EM.closeModal();
     EM.showToast({ type: 'reward', icon: '🎉', title: 'Canje realizado',
       body: benefit.title + ' — se descontaron ' + benefit.cost + ' pts.' });
-    EM.navigateTo('benefits');
+    EM.navigateTo('eco-rewards');
   }
 
   /* ---------- helper ---------- */
@@ -238,9 +231,9 @@
       '<p class="empty-state__text">' + esc(text) + '</p></div></div>';
   }
 
-  /* ---------- Register views + actions ---------- */
-  EM.registerView({ id: 'credits',  icon: '★',  title: 'Eco-Créditos', navLabel: 'Créditos', render: renderCreditsView });
-  EM.registerView({ id: 'benefits', icon: '🎁', title: 'Beneficios',   navLabel: 'Beneficios', render: renderBenefitsView });
+  /* ---------- Register view + actions ----------
+     Créditos + Beneficios se fusionan en 'Recompensas' (perfil eco). */
+  EM.registerView({ id: 'eco-rewards', profile: 'eco', order: 4, icon: '🎁', title: 'Recompensas', navLabel: 'Recompensas', render: renderRewardsView });
 
   EM.appActions['filter-benefits'] = filterBenefits;
   EM.appActions['redeem-benefit']  = redeemBenefit;

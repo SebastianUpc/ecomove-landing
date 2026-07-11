@@ -86,22 +86,11 @@
   }
 
   /* =======================================================
-     RENDER DASHBOARD (US31 acceso)
+     HTML BUILDERS (reutilizados por las 3 pestañas del consultor)
      ======================================================= */
-  function renderDashboardView(container) {
-    const f = state.dashboard;
-    const data = computeDashboard(f);
-
-    let html =
-      '<header class="view-head">' +
-        '<span class="view-head__eyebrow">Consultor ambiental</span>' +
-        '<h1 class="view-head__title">Dashboard ambiental</h1>' +
-        '<p class="view-head__subtitle">Métricas agregadas de movilidad sostenible para la toma de decisiones.</p>' +
-      '</header>';
-
-    // US33 filtros
-    html +=
-      '<div class="panel"><h2 class="panel__title">Filtros</h2>' +
+  function filtersPanelHtml(f) {
+    return '<div class="panel"><h2 class="panel__title">Filtros</h2>' +
+        '<p class="panel__hint">Segmenta los datos por zona, periodo y medio. Afecta a todo el panel.</p>' +
         '<div class="dash-filters">' +
           filterSelect('zone', 'Zona', [{ v: 'all', l: 'Todas las zonas' }].concat(
             Object.keys(DASH_DATA).map(function (id) { return { v: id, l: DASH_DATA[id].name }; })), f.zone) +
@@ -114,10 +103,10 @@
           ], f.mode) +
         '</div>' +
       '</div>';
+  }
 
-    // US34 CO2 agregado + KPIs
-    html +=
-      '<div class="stat-grid" style="margin-bottom:16px">' +
+  function kpisHtml(data, f) {   // US34
+    return '<div class="stat-grid" style="margin-bottom:16px">' +
         '<div class="stat stat--dark stat--wide"><span class="stat__value">' + data.co2Tonnes.toFixed(1) +
           ' t</span><span class="stat__label">CO₂ evitado (agregado) · ' + esc(PERIOD_LABELS[f.period]) + '</span></div>' +
         '<div class="stat"><span class="stat__value">' + EM.formatNumber(data.totalTrips) +
@@ -127,9 +116,10 @@
         '<div class="stat"><span class="stat__value">' + MODE_LABELS[data.topMode] +
           '</span><span class="stat__label">Medio dominante</span></div>' +
       '</div>';
+  }
 
-    // US32 mapa de calor
-    html += '<div class="panel"><h2 class="panel__title">Mapa de calor por zona</h2>' +
+  function heatmapHtml(data) {   // US32
+    let html = '<div class="panel"><h2 class="panel__title">Mapa de calor por zona</h2>' +
       '<p class="panel__hint">Intensidad de trayectos sostenibles por zona (dataset simulado).</p>' +
       '<div class="heatmap">';
     data.zoneRows.forEach(function (z) {
@@ -140,10 +130,11 @@
         '<span class="heatmap__val">' + EM.formatNumber(z.trips) + '</span>' +
         '</div>';
     });
-    html += '</div></div>';
+    return html + '</div></div>';
+  }
 
-    // US35 tendencias de movilidad
-    html += '<div class="panel"><h2 class="panel__title">Tendencia de movilidad</h2>' +
+  function trendsHtml(data) {    // US35
+    let html = '<div class="panel"><h2 class="panel__title">Tendencia de movilidad</h2>' +
       '<p class="panel__hint">Trayectos por semana en el periodo seleccionado.</p>' +
       '<div class="trend-chart" role="img" aria-label="Gráfico de tendencia semanal de trayectos">';
     const maxWeek = Math.max.apply(null, data.weekly);
@@ -155,7 +146,6 @@
         '<span class="trend-chart__label">S' + (i + 1) + '</span></div>';
     });
     html += '</div>';
-    // reparto por medio
     html += '<div class="mode-share">';
     ['walk', 'bike', 'scooter'].forEach(function (mid) {
       const pct = data.totalTrips ? Math.round((data.modeShare[mid] / data.totalTrips) * 100) : 0;
@@ -164,26 +154,67 @@
         '<span class="mode-share__track"><span class="mode-share__fill" style="width:' + pct + '%"></span></span>' +
         '<span class="mode-share__pct">' + pct + '%</span></div>';
     });
-    html += '</div></div>';
+    return html + '</div></div>';
+  }
 
-    // Tabla por zona
-    html += '<div class="panel"><h2 class="panel__title">Detalle por zona</h2>' +
+  function tableHtml(data) {
+    let html = '<div class="panel"><h2 class="panel__title">Detalle por zona</h2>' +
       '<div class="table-wrap"><table class="data-table">' +
       '<thead><tr><th scope="col">Zona</th><th scope="col">Trayectos</th><th scope="col">CO₂ evitado</th></tr></thead><tbody>';
     data.zoneRows.forEach(function (z) {
       html += '<tr><td>' + esc(z.name) + '</td><td>' + EM.formatNumber(z.trips) + '</td><td>' +
         (z.co2Kg / 1000).toFixed(2) + ' t</td></tr>';
     });
-    html += '</tbody></table></div></div>';
+    return html + '</tbody></table></div></div>';
+  }
 
-    // US36-40 reporte
-    html += '<div class="panel"><h2 class="panel__title">Reporte ambiental</h2>' +
-      '<p class="panel__hint">Genera un reporte auditable con la selección actual.</p>' +
-      '<button class="app-btn app-btn--primary app-btn--block" type="button" data-action="generate-report">' +
-      '📄 Generar reporte ambiental</button>' +
-      '<div id="report-output"></div></div>';
+  function viewHead(eyebrow, title, subtitle) {
+    return '<header class="view-head">' +
+      '<span class="view-head__eyebrow">' + esc(eyebrow) + '</span>' +
+      '<h1 class="view-head__title">' + esc(title) + '</h1>' +
+      '<p class="view-head__subtitle">' + esc(subtitle) + '</p>' +
+    '</header>';
+  }
 
-    container.innerHTML = html;
+  /* =======================================================
+     CONSULTOR — DASHBOARD (métricas agregadas) US31, US34, US35
+     ======================================================= */
+  function renderConsDashboard(container) {
+    const f = state.dashboard;
+    const data = computeDashboard(f);
+    container.innerHTML =
+      viewHead('Consultor ambiental', 'Dashboard ambiental',
+        'Métricas agregadas de movilidad sostenible para la toma de decisiones.') +
+      kpisHtml(data, f) + trendsHtml(data) + tableHtml(data);
+  }
+
+  /* =======================================================
+     CONSULTOR — MAPA (filtros + mapa de calor) US32, US33
+     ======================================================= */
+  function renderConsMap(container) {
+    const f = state.dashboard;
+    const data = computeDashboard(f);
+    container.innerHTML =
+      viewHead('Consultor ambiental', 'Mapa de calor',
+        'Filtra por zona, periodo y medio para explorar la intensidad de movilidad sostenible.') +
+      filtersPanelHtml(f) + heatmapHtml(data);
+  }
+
+  /* =======================================================
+     CONSULTOR — REPORTES (generación + exportación) US36-40
+     ======================================================= */
+  function renderConsReports(container) {
+    const f = state.dashboard;
+    const data = computeDashboard(f);
+    container.innerHTML =
+      viewHead('Consultor ambiental', 'Reportes ambientales',
+        'Genera reportes auditables con la selección de filtros actual y expórtalos.') +
+      kpisHtml(data, f) +
+      '<div class="panel"><h2 class="panel__title">Reporte ambiental</h2>' +
+        '<p class="panel__hint">Genera un reporte auditable con la selección actual (Zona/Periodo/Medio del Mapa).</p>' +
+        '<button class="app-btn app-btn--primary app-btn--block" type="button" data-action="generate-report">' +
+        '📄 Generar reporte ambiental</button>' +
+        '<div id="report-output"></div></div>';
   }
 
   function filterSelect(key, label, options, selected) {
@@ -270,11 +301,13 @@
     const key = el.getAttribute('data-dash-filter');
     state.dashboard[key] = el.value;
     EM.saveState();
-    EM.navigateTo('dashboard');
+    EM.navigateTo('cons-map'); // los filtros viven en la pestaña Mapa
   });
 
-  /* ---------- Register view + actions ---------- */
-  EM.registerView({ id: 'dashboard', icon: '📊', title: 'Dashboard', navLabel: 'Panel', render: renderDashboardView });
+  /* ---------- Register consultant views + actions ---------- */
+  EM.registerView({ id: 'cons-dashboard', profile: 'consultant', order: 1, icon: '📊', title: 'Dashboard', navLabel: 'Dashboard', render: renderConsDashboard });
+  EM.registerView({ id: 'cons-map',       profile: 'consultant', order: 2, icon: '🗺️', title: 'Mapa',      navLabel: 'Mapa',      render: renderConsMap });
+  EM.registerView({ id: 'cons-reports',   profile: 'consultant', order: 3, icon: '📄', title: 'Reportes',  navLabel: 'Reportes',  render: renderConsReports });
 
   EM.appActions['generate-report'] = generateReport;
   EM.appActions['export-pdf'] = exportPdf;
