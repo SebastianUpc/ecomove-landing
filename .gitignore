@@ -5,6 +5,12 @@ tmp/
 .agents/
 .claude/
 
+# Documentos y scripts del informe académico (no forman parte del producto)
+*.docx
+audit_*.py
+build_*_docx.py
+crop_interview_frames.ps1
+
 # Sistema
 Thumbs.db
 Desktop.ini
