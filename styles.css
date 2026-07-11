@@ -28,37 +28,18 @@
 
 body {
   margin: 0;
-  padding: 40px 0 120px;
+  padding: 0;
   font-family: var(--font-body);
-  background: #f2f4f3;
+  background: var(--white);
   color: var(--dark);
 }
 
-.page-title {
-  text-align: center;
-  font-family: var(--font-title);
-  font-size: 20px;
-  color: var(--gray);
-  margin: 0 0 40px;
-}
-
-.frame-label {
-  text-align: center;
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--jade-dark);
-  margin: 0 0 16px;
-}
-
+/* Contenedor único de la landing (antes eran dos "frames" del mock-up).
+   Ahora es una página fluida: ocupa el 100% del ancho y se centra en
+   pantallas muy anchas. La responsividad la dan las media queries. */
 .frame {
   background: var(--white);
-  border: 1px solid var(--platinum);
-  border-radius: 12px;
-  margin: 0 auto 80px;
   overflow: hidden;
-  box-shadow: 0 12px 32px rgba(44, 62, 80, 0.08);
 }
 
 /* ---------- Shared elements ---------- */
@@ -314,8 +295,9 @@ body {
    ========================================================= */
 
 .frame-desktop {
-  width: 1440px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 .d-header {
@@ -799,24 +781,20 @@ body {
 }
 
 /* =========================================================
-   MOBILE FRAME (390px)
+   HEADER — acciones y menú responsive (hamburguesa)
    ========================================================= */
 
-.frame-mobile {
-  width: 390px;
-  max-width: 100%;
-}
-
-.m-header {
+.d-header__actions {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 14px 20px;
-  border-bottom: 1px solid var(--platinum);
-  background: var(--white);
+  gap: 16px;
 }
 
+/* Botón de menú: oculto en escritorio, visible en móvil vía media query */
 .menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
   background: var(--mint-bg);
   border: 1px solid var(--mint);
   border-radius: 8px;
@@ -830,49 +808,6 @@ body {
 .menu-btn:focus-visible {
   outline: 2px solid var(--jade-action);
   outline-offset: 2px;
-}
-
-.m-section {
-  padding: 36px 20px;
-}
-
-.m-title {
-  font-size: 26px;
-}
-
-.m-visual {
-  margin-top: 24px;
-}
-
-.frame-mobile .s-title {
-  font-size: 22px;
-  margin-bottom: 20px;
-}
-
-.frame-mobile .btn.full {
-  font-size: 14px;
-}
-
-.frame-mobile .split-block,
-.frame-mobile .d-hero {
-  flex-direction: column;
-}
-
-.frame-mobile .dashboard-stats {
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.m-footer {
-  padding: 36px 20px;
-  background: var(--dark);
-  text-align: center;
-}
-
-.m-footer p {
-  font-size: 13px;
-  color: #AAB4BD;
-  margin: 10px 0 0;
 }
 
 /* ---------- Contact form ---------- */
@@ -954,7 +889,7 @@ body {
   .h-title { font-size: 34px; }
 }
 
-/* Tablet vertical / móvil grande */
+/* Tablet vertical / móvil grande — se activa el menú hamburguesa */
 @media (max-width: 768px) {
   .d-hero,
   .split-block {
@@ -964,6 +899,7 @@ body {
   .grid-3,
   .grid-4 { grid-template-columns: 1fr; }
   .d-nav { display: none; }
+  .menu-btn { display: inline-flex; }
   .hero-stats { flex-wrap: wrap; gap: 20px; }
   .h-title { font-size: 30px; }
   .s-title { font-size: 24px; }
@@ -975,12 +911,12 @@ body {
   .d-footer { flex-direction: column; gap: 24px; padding: 32px 20px; }
 }
 
-/* Móvil */
-@media (max-width: 430px) {
-  body { padding: 20px 0 80px; }
-  .frame { border-radius: 0; }
+/* Móvil — se oculta el CTA del header para dar espacio al logo + menú */
+@media (max-width: 480px) {
+  .d-header__cta { display: none; }
   .h-title { font-size: 26px; }
   .s-title { font-size: 22px; }
   .hero-stat strong { font-size: 18px; }
   .section { padding: 32px 16px; }
+  .hero-stats { gap: 16px; }
 }
