@@ -40,6 +40,20 @@ dashboard.js      # Dashboard del consultor ambiental
 assets/           # Logo e imágenes
 ```
 
+## Acceptance Tests
+
+Las pruebas de aceptación están redactadas en **Gherkin (español)** y se encuentran en la carpeta [`acceptance-tests`](acceptance-tests). Validan los flujos principales del producto: registro de trayectos sostenibles, acumulación y canje de Eco-Créditos, recompensas y dashboard ambiental del consultor. Son pruebas de aceptación del **frontend simulado** (el estado se maneja en `localStorage`), por lo que no requieren un backend real.
+
+- [US01 - Iniciar viaje sostenible](acceptance-tests/us01-start-sustainable-trip.feature)
+- [US04 - Finalizar viaje sostenible](acceptance-tests/us04-finish-sustainable-trip.feature)
+- [US11 - Acumular Eco-Créditos](acceptance-tests/us11-accrue-eco-credits.feature)
+- [US23 - Canjear Eco-Créditos](acceptance-tests/us23-redeem-eco-credits.feature)
+- [US32 - Visualizar mapa de calor](acceptance-tests/us32-view-heat-map.feature)
+- [US33 - Filtrar dashboard](acceptance-tests/us33-filter-dashboard-data.feature)
+- [US36 - Generar reporte ambiental](acceptance-tests/us36-generate-environmental-report.feature)
+
+La ruta oficial de las pruebas de aceptación es únicamente `/acceptance-tests`.
+
 ## 🌿 Flujo de ramas
 
 - `main` — versión de producción (desplegada en GitHub Pages).
