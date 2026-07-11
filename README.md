@@ -1,0 +1,49 @@
+# EcoMove — Landing Page + App funcional (MVP)
+
+Plataforma de movilidad sostenible que registra trayectos, calcula el CO₂ evitado y convierte los hábitos de movilidad en Eco-Créditos canjeables por recompensas.
+
+## 🌐 Demo en producción
+
+**👉 [https://sebastianupc.github.io/ecomove-landing/](https://sebastianupc.github.io/ecomove-landing/)**
+
+Abre la demo y pulsa **"Empezar ahora"** para entrar a la app funcional (frontend simulado, sin backend; el estado se guarda en `localStorage`).
+
+## ✨ Funcionalidades
+
+La landing incluye una app funcional con 32 User Stories implementadas, organizadas en tres módulos:
+
+- **Trayectos** — iniciar/pausar/reanudar/finalizar viaje con cronómetro real, registro en segundo plano, historial, cálculo de CO₂ (por viaje y acumulado), rutas con ciclovías, comparación y recomendación de ruta segura. Medios: caminata, bicicleta y scooter eléctrico.
+- **Eco-Créditos y recompensas** — saldo e historial de créditos, validación antifraude, catálogo de beneficios con filtro por categoría, canje con validación de saldo, confirmación e historial de canjes.
+- **Dashboard del consultor** — mapa de calor por zona, filtros de zona/periodo/medio que recalculan las métricas, CO₂ agregado, tendencias de movilidad, generación de reporte con trazabilidad y exportación simulada a PDF/Excel.
+
+## 🛠️ Tecnología
+
+HTML semántico · CSS con metodología BEM y variables del Design System (verde jade, verde menta, amarillo pastel) · JavaScript vanilla (sin dependencias). Responsive mobile-first con media queries reales.
+
+## ▶️ Ejecutar localmente
+
+```bash
+# Desde la raíz del repositorio
+python -m http.server 8000
+# Luego abre http://localhost:8000/
+```
+
+## 📁 Estructura
+
+```
+index.html        # Landing + contenedor de la app (SPA overlay)
+styles.css        # Estilos de la landing
+app.css           # Estilos de la app funcional (BEM)
+app.js            # Shell, router y módulo de trayectos
+rewards.js        # Eco-Créditos y canje de beneficios
+dashboard.js      # Dashboard del consultor ambiental
+assets/           # Logo e imágenes
+```
+
+## 🌿 Flujo de ramas
+
+- `main` — versión de producción (desplegada en GitHub Pages).
+- `develop` — rama de integración.
+- `feature/*` — un branch por bloque funcional (`trip-tracking`, `rewards-redemption`, `consultant-dashboard`), fusionados a `develop` con Conventional Commits.
+
+Release actual: **`v1.0.0`** — EcoMove Landing Page functional MVP.
