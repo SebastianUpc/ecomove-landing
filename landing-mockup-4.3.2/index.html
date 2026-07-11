@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EcoMove - Landing Page Mock-up (4.3.2)</title>
+<title>EcoMove - Movilidad sostenible, medible y recompensada</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="app.css">
 </head>
 <body>
 
@@ -290,31 +291,36 @@
     <span class="eyebrow">CONTACTO</span>
     <h3 class="s-title">Hablemos de tu próximo paso sostenible</h3>
     <p class="s-subtitle">Escríbenos como eco-usuario o como consultora/empresa interesada en una demo B2B.</p>
-    <div class="contact-form">
+    <form class="contact-form" id="contact-form-desktop" novalidate>
       <div class="form-group">
-        <span class="form-label">Tipo de consulta</span>
-        <div class="form-select">Selecciona una opción ▾</div>
+        <label class="form-label" for="contact-type-desktop">Tipo de consulta</label>
+        <select class="form-select" id="contact-type-desktop" name="type" required>
+          <option value="">Selecciona una opción</option>
+          <option value="eco-usuario">Soy eco-usuario</option>
+          <option value="consultora">Consultora / empresa (demo B2B)</option>
+          <option value="prensa">Prensa / otros</option>
+        </select>
       </div>
       <div class="form-group">
-        <span class="form-label">Nombre</span>
-        <div class="form-input">Nombre completo</div>
+        <label class="form-label" for="contact-name-desktop">Nombre</label>
+        <input class="form-input" id="contact-name-desktop" name="name" type="text" placeholder="Nombre completo" required>
       </div>
       <div class="form-group">
-        <span class="form-label">Correo electrónico</span>
-        <div class="form-input">correo@ejemplo.com</div>
+        <label class="form-label" for="contact-email-desktop">Correo electrónico</label>
+        <input class="form-input" id="contact-email-desktop" name="email" type="email" placeholder="correo@ejemplo.com" required>
       </div>
       <div class="form-group">
-        <span class="form-label">Empresa / consultora (opcional)</span>
-        <div class="form-input">Nombre de la empresa</div>
+        <label class="form-label" for="contact-company-desktop">Empresa / consultora (opcional)</label>
+        <input class="form-input" id="contact-company-desktop" name="company" type="text" placeholder="Nombre de la empresa">
       </div>
       <div class="form-group">
-        <span class="form-label">Mensaje</span>
-        <div class="form-textarea">Escribe tu consulta...</div>
+        <label class="form-label" for="contact-message-desktop">Mensaje</label>
+        <textarea class="form-textarea" id="contact-message-desktop" name="message" placeholder="Escribe tu consulta..." required></textarea>
       </div>
-      <p class="form-state form-state--error">Completa los campos obligatorios antes de enviar.</p>
-      <p class="form-state form-state--confirm">Tu consulta fue enviada. Te responderemos pronto.</p>
-      <button class="btn btn-primary btn-lg">Enviar consulta</button>
-    </div>
+      <p class="form-state form-state--error" role="alert" hidden>Completa los campos obligatorios antes de enviar.</p>
+      <p class="form-state form-state--confirm" role="status" hidden>Tu consulta fue enviada. Te responderemos pronto.</p>
+      <button class="btn btn-primary btn-lg" type="submit">Enviar consulta</button>
+    </form>
   </section>
 
   <!-- 10. FOOTER -->
@@ -359,8 +365,15 @@
     <div class="logo-box logo-box-small">
       <img src="assets/logo-ecomove.png" alt="Logo EcoMove" class="logo-img">
     </div>
-    <button class="menu-btn" aria-label="Abrir menú">☰</button>
+    <button class="menu-btn" id="mobile-menu-btn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav">☰</button>
   </header>
+  <nav class="m-nav" id="mobile-nav" aria-label="Menú móvil" hidden>
+    <a href="#hero">Inicio</a>
+    <a href="#solucion">Cómo funciona</a>
+    <a href="#beneficios-usuarios">Beneficios</a>
+    <a href="#beneficios-consultores">Consultores</a>
+    <a href="#contacto-mobile">Contacto</a>
+  </nav>
 
   <!-- 2. HERO SECTION MOBILE -->
   <section class="section m-section">
@@ -584,31 +597,36 @@
   <section class="section m-section" id="contacto-mobile">
     <span class="eyebrow">CONTACTO</span>
     <h3 class="s-title">Hablemos de tu próximo paso sostenible</h3>
-    <div class="contact-form">
+    <form class="contact-form" id="contact-form-mobile" novalidate>
       <div class="form-group">
-        <span class="form-label">Tipo de consulta</span>
-        <div class="form-select">Selecciona una opción ▾</div>
+        <label class="form-label" for="contact-type-mobile">Tipo de consulta</label>
+        <select class="form-select" id="contact-type-mobile" name="type" required>
+          <option value="">Selecciona una opción</option>
+          <option value="eco-usuario">Soy eco-usuario</option>
+          <option value="consultora">Consultora / empresa (demo B2B)</option>
+          <option value="prensa">Prensa / otros</option>
+        </select>
       </div>
       <div class="form-group">
-        <span class="form-label">Nombre</span>
-        <div class="form-input">Nombre completo</div>
+        <label class="form-label" for="contact-name-mobile">Nombre</label>
+        <input class="form-input" id="contact-name-mobile" name="name" type="text" placeholder="Nombre completo" required>
       </div>
       <div class="form-group">
-        <span class="form-label">Correo electrónico</span>
-        <div class="form-input">correo@ejemplo.com</div>
+        <label class="form-label" for="contact-email-mobile">Correo electrónico</label>
+        <input class="form-input" id="contact-email-mobile" name="email" type="email" placeholder="correo@ejemplo.com" required>
       </div>
       <div class="form-group">
-        <span class="form-label">Empresa / consultora (opcional)</span>
-        <div class="form-input">Nombre de la empresa</div>
+        <label class="form-label" for="contact-company-mobile">Empresa / consultora (opcional)</label>
+        <input class="form-input" id="contact-company-mobile" name="company" type="text" placeholder="Nombre de la empresa">
       </div>
       <div class="form-group">
-        <span class="form-label">Mensaje</span>
-        <div class="form-textarea">Escribe tu consulta...</div>
+        <label class="form-label" for="contact-message-mobile">Mensaje</label>
+        <textarea class="form-textarea" id="contact-message-mobile" name="message" placeholder="Escribe tu consulta..." required></textarea>
       </div>
-      <p class="form-state form-state--error">Completa los campos obligatorios antes de enviar.</p>
-      <p class="form-state form-state--confirm">Tu consulta fue enviada. Te responderemos pronto.</p>
-      <button class="btn btn-primary full">Enviar consulta</button>
-    </div>
+      <p class="form-state form-state--error" role="alert" hidden>Completa los campos obligatorios antes de enviar.</p>
+      <p class="form-state form-state--confirm" role="status" hidden>Tu consulta fue enviada. Te responderemos pronto.</p>
+      <button class="btn btn-primary full" type="submit">Enviar consulta</button>
+    </form>
   </section>
 
   <!-- 10. FOOTER MOBILE -->
@@ -624,5 +642,43 @@
 
 </div>
 
+<!-- ==================================================== -->
+<!-- ECOMOVE FUNCTIONAL APP (SPA overlay, simulado)        -->
+<!-- ==================================================== -->
+<div class="app" id="app-shell" role="dialog" aria-modal="true" aria-label="Aplicación EcoMove" hidden>
+
+  <header class="app__header">
+    <div class="app__brand">
+      <img src="assets/logo-ecomove.png" alt="Logo EcoMove" class="app__logo">
+      <span class="app__title" id="app-view-title">EcoMove</span>
+    </div>
+    <div class="app__header-actions">
+      <button class="app__credits-pill" id="app-credits-pill" type="button" aria-label="Ver saldo de Eco-Créditos">
+        <span aria-hidden="true">★</span>
+        <span id="app-credits-balance">0</span> pts
+      </button>
+      <button class="app__close" id="app-close" type="button" aria-label="Cerrar aplicación">✕</button>
+    </div>
+  </header>
+
+  <!-- US02: indicador de registro en segundo plano -->
+  <button class="app__bg-banner" id="app-bg-banner" type="button" hidden aria-live="polite">
+    <span class="app__bg-dot" aria-hidden="true"></span>
+    <span id="app-bg-banner-text">Registro activo en segundo plano</span>
+    <span class="app__bg-cta" aria-hidden="true">Volver al viaje ›</span>
+  </button>
+
+  <main class="app__view" id="app-view" tabindex="-1"></main>
+
+  <nav class="app__nav" id="app-nav" aria-label="Navegación principal de la app"></nav>
+</div>
+
+<!-- Toasts (US13 notificaciones) -->
+<div class="toast-stack" id="toast-stack" aria-live="polite" aria-atomic="false"></div>
+
+<!-- Modal root (resúmenes, confirmaciones) -->
+<div class="modal-root" id="modal-root" hidden></div>
+
+<script src="app.js"></script>
 </body>
 </html>
