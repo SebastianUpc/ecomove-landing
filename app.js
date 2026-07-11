@@ -138,12 +138,29 @@
      ======================================================= */
   const views = [];
   let activeViewId = null;
+  let currentProfile = null;   // 'eco' | 'consultant' | null (pantalla de selección)
+
+  // Dos experiencias separadas (perfiles) según el diseño de Figma
+  const PROFILES = {
+    eco:        { label: 'Eco-usuario',          icon: '🌿', userName: 'Alex Ríos' },
+    consultant: { label: 'Consultor ambiental',  icon: '📊', userName: 'Dra. Elena Vargas' }
+  };
 
   function registerView(view) { views.push(view); }
 
+  function profileViews(profile) {
+    return views
+      .filter(function (v) { return v.profile === profile; })
+      .sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
+  }
+
   function renderNav() {
     const nav = $('#app-nav');
-    nav.innerHTML = views.map(function (v) {
+    if (!currentProfile) { nav.hidden = true; nav.innerHTML = ''; return; }
+    nav.hidden = false;
+    // clase modificadora por perfil => cada menú se ve visualmente distinto
+    nav.className = 'app__nav app__nav--' + currentProfile;
+    nav.innerHTML = profileViews(currentProfile).map(function (v) {
       const active = v.id === activeViewId;
       return '<button class="nav-tab' + (active ? ' nav-tab--active' : '') + '" ' +
         'type="button" data-view="' + v.id + '" aria-current="' + (active ? 'page' : 'false') + '">' +
@@ -168,14 +185,82 @@
     updateBackgroundBanner();
   }
 
+  function rerenderCurrent() { if (activeViewId) navigateTo(activeViewId); }
+
+  /* =======================================================
+     USER-TYPE SELECTION + PROFILE SCREENS
+     ======================================================= */
+  function showProfileSelection() {
+    currentProfile = null;
+    activeViewId = null;
+    const viewEl = $('#app-view');
+    const inner = document.createElement('div');
+    inner.className = 'app__view-inner';
+    viewEl.innerHTML = '';
+    viewEl.appendChild(inner);
+    renderProfileSelection(inner);
+    $('#app-view-title').textContent = 'EcoMove';
+    $('#app-credits-pill').hidden = true;
+    viewEl.scrollTop = 0;
+    renderNav();
+    updateBackgroundBanner();
+  }
+
+  function renderProfileSelection(container) {
+    container.innerHTML =
+      '<div class="profile-select">' +
+        '<header class="view-head profile-select__head">' +
+          '<span class="view-head__eyebrow">Bienvenido a EcoMove</span>' +
+          '<h1 class="view-head__title">¿Cómo quieres continuar?</h1>' +
+          '<p class="view-head__subtitle">Elige con qué experiencia deseas ingresar.</p>' +
+        '</header>' +
+        '<button class="profile-card profile-card--eco" type="button" data-action="select-eco">' +
+          '<span class="profile-card__icon" aria-hidden="true">🌿</span>' +
+          '<span class="profile-card__title">Continuar como eco-usuario</span>' +
+          '<span class="profile-card__desc">Registra viajes sostenibles, gana Eco-Créditos y canjéalos por recompensas.</span>' +
+        '</button>' +
+        '<button class="profile-card profile-card--consultant" type="button" data-action="select-consultant">' +
+          '<span class="profile-card__icon" aria-hidden="true">📊</span>' +
+          '<span class="profile-card__title">Continuar como consultor ambiental</span>' +
+          '<span class="profile-card__desc">Analiza métricas agregadas de movilidad y genera reportes ambientales.</span>' +
+        '</button>' +
+      '</div>';
+  }
+
+  function selectProfile(profile) {
+    currentProfile = profile;
+    $('#app-credits-pill').hidden = (profile !== 'eco');
+    const first = profileViews(profile)[0];
+    if (first) navigateTo(first.id);
+  }
+
+  // Pantalla "Perfil" (compartida por ambos perfiles; usa currentProfile)
+  function renderProfileScreen(container) {
+    const p = PROFILES[currentProfile] || PROFILES.eco;
+    container.innerHTML =
+      '<header class="view-head">' +
+        '<span class="view-head__eyebrow">Perfil</span>' +
+        '<h1 class="view-head__title">Mi perfil</h1>' +
+        '<p class="view-head__subtitle">Gestiona tu sesión y tu tipo de experiencia.</p>' +
+      '</header>' +
+      '<div class="panel profile-panel">' +
+        '<span class="profile-panel__avatar" aria-hidden="true">' + p.icon + '</span>' +
+        '<p class="profile-panel__name">' + escapeHtml(p.userName) + '</p>' +
+        '<span class="badge badge--ok">' + escapeHtml(p.label) + '</span>' +
+      '</div>' +
+      '<button class="app-btn app-btn--secondary app-btn--block" type="button" data-action="change-profile" ' +
+        'style="margin-bottom:10px">🔄 Cambiar de perfil</button>' +
+      '<button class="app-btn app-btn--ghost app-btn--block" type="button" data-action="logout">🚪 Cerrar sesión</button>';
+  }
+
   /* =======================================================
      APP SHELL open / close
      ======================================================= */
-  function openApp(viewId) {
+  function openApp() {
     $('#app-shell').hidden = false;
     document.body.classList.add('app-open');
     refreshCreditsPill();
-    navigateTo(viewId || (views[0] && views[0].id));
+    showProfileSelection();     // siempre inicia en la selección de tipo de usuario
     $('#app-view').focus();
   }
 
@@ -293,7 +378,7 @@
       intervalId: null
     };
     activeTrip.intervalId = setInterval(tripTick, 1000); // US01 cronómetro real
-    renderTripView($('.app__view-inner'));
+    rerenderCurrent();
     showToast({ type: 'success', icon: '🚴', title: 'Viaje iniciado',
       body: 'Registrando tu trayecto en ' + TRANSPORT_MODES[selectedMode].label.toLowerCase() + '.' });
   }
@@ -312,14 +397,14 @@
     if (!activeTrip || activeTrip.status !== 'active') return;
     activeTrip.status = 'paused';
     clearInterval(activeTrip.intervalId);
-    renderTripView($('.app__view-inner'));
+    rerenderCurrent();
   }
 
   function resumeTrip() {          // US03
     if (!activeTrip || activeTrip.status !== 'paused') return;
     activeTrip.status = 'active';
     activeTrip.intervalId = setInterval(tripTick, 1000);
-    renderTripView($('.app__view-inner'));
+    rerenderCurrent();
   }
 
   function finishTrip() {          // US04
@@ -359,7 +444,7 @@
     activeTrip = null;
     simulateFraud = false;
     showTripSummary(trip, validation);
-    navigateTo('trip');
+    navigateTo('eco-home');
   }
 
   /* ---------- TRIP SUMMARY MODAL (US04, US06) ---------- */
@@ -426,7 +511,7 @@
     const banner = $('#app-bg-banner');
     if (!banner) return;
     const tripActive = activeTrip && (activeTrip.status === 'active' || activeTrip.status === 'paused');
-    if (tripActive && activeViewId !== 'trip') {
+    if (tripActive && activeViewId !== 'eco-home') {
       banner.hidden = false;
       $('#app-bg-banner-text').textContent =
         (activeTrip.status === 'paused' ? 'Viaje en pausa · ' : 'Registrando en segundo plano · ') +
@@ -443,7 +528,7 @@
     selectedMode = modeId;
     currentRoutes = [];
     selectedRouteId = null;
-    renderTripView($('.app__view-inner'));
+    rerenderCurrent();
   }
 
   /* ---------- ROUTE ACTIONS (US16-US19) ---------- */
@@ -452,7 +537,7 @@
     currentRoutes = generateRoutes(selectedMode, routeSeed);
     // US18: recomendar la ruta más segura por defecto
     selectedRouteId = recommendedRouteId();
-    renderTripView($('.app__view-inner'));
+    rerenderCurrent();
   }
 
   function recommendedRouteId() {
@@ -465,31 +550,32 @@
     routeSeed += 1;
     currentRoutes = generateRoutes(selectedMode, routeSeed);
     selectedRouteId = recommendedRouteId();
-    renderTripView($('.app__view-inner'));
+    rerenderCurrent();
     showToast({ type: 'success', icon: '🗺️', title: 'Ruta recalculada',
       body: 'Se actualizaron las opciones de ruta.' });
   }
 
   function selectRoute(routeId) {
     selectedRouteId = routeId;
-    renderTripView($('.app__view-inner'));
+    rerenderCurrent();
   }
 
   /* =======================================================
-     TRIP VIEW RENDER (US01-07, US16-20)
+     ECO — INICIO (resumen + selector de medio + cronómetro)
+     US01-07, US20. Acceso rápido para iniciar un viaje.
      ======================================================= */
-  function renderTripView(container) {
+  function renderEcoHome(container) {
     if (!container) return;
     let html = '';
 
-    // Encabezado + CO2 acumulado (US07)
     html +=
       '<header class="view-head">' +
-        '<span class="view-head__eyebrow">Registro de trayecto</span>' +
-        '<h1 class="view-head__title">Tu viaje sostenible</h1>' +
-        '<p class="view-head__subtitle">Inicia, pausa y finaliza tu trayecto para ganar Eco-Créditos.</p>' +
+        '<span class="view-head__eyebrow">Inicio</span>' +
+        '<h1 class="view-head__title">Hola, ' + escapeHtml(PROFILES.eco.userName) + '</h1>' +
+        '<p class="view-head__subtitle">Tu resumen de impacto y acceso rápido para iniciar un viaje.</p>' +
       '</header>';
 
+    // Resumen (US07 CO2 acumulado, US12 saldo)
     html +=
       '<div class="stat-grid" style="margin-bottom:16px">' +
         '<div class="stat stat--yellow"><span class="stat__value">' + formatNumber(state.credits.balance) +
@@ -513,14 +599,31 @@
       }).join('') +
       '</div></div>';
 
-    // Planificador de ruta (US16-US19)
-    html += renderRoutePlanner();
-
     // Control del viaje (US01-US04)
     html += renderTripTracker();
 
+    // Acceso a la planificación de ruta (vive en la pestaña Mapa)
+    html += '<button class="app-btn app-btn--ghost app-btn--block" type="button" data-view="eco-map" ' +
+      'style="margin-top:6px">🗺️ Planificar una ruta sostenible</button>';
+
     container.innerHTML = html;
     updateLiveTripStats();
+  }
+
+  /* =======================================================
+     ECO — MAPA (planificador y comparación de rutas)
+     US16-US19
+     ======================================================= */
+  function renderEcoMap(container) {
+    if (!container) return;
+    let html =
+      '<header class="view-head">' +
+        '<span class="view-head__eyebrow">Mapa</span>' +
+        '<h1 class="view-head__title">Planificar ruta</h1>' +
+        '<p class="view-head__subtitle">Compara rutas sostenibles con ciclovías y elige la más segura.</p>' +
+      '</header>';
+    html += renderRoutePlanner();
+    container.innerHTML = html;
   }
 
   function renderRoutePlanner() {
@@ -678,10 +781,18 @@
   }
 
   /* =======================================================
-     REGISTER TRIP-TRACKING VIEWS
+     REGISTER VIEWS
+     Eco-usuario: Inicio, Mapa, Viajes, Recompensas(rewards.js), Perfil
+     Consultor:   Dashboard(dashboard.js), Mapa, Reportes, Perfil
+     El orden dentro de cada menú lo define el campo `order`.
      ======================================================= */
-  registerView({ id: 'trip', icon: '🚴', title: 'Viaje', navLabel: 'Viaje', render: renderTripView });
-  registerView({ id: 'history', icon: '🕘', title: 'Historial', navLabel: 'Historial', render: renderHistoryView });
+  registerView({ id: 'eco-home',  profile: 'eco', order: 1, icon: '🏠', title: 'Inicio',  navLabel: 'Inicio',  render: renderEcoHome });
+  registerView({ id: 'eco-map',   profile: 'eco', order: 2, icon: '🗺️', title: 'Mapa',    navLabel: 'Mapa',    render: renderEcoMap });
+  registerView({ id: 'eco-trips', profile: 'eco', order: 3, icon: '🚴', title: 'Viajes',  navLabel: 'Viajes',  render: renderHistoryView });
+  // 'eco-rewards' (order 4) lo registra rewards.js
+  registerView({ id: 'eco-profile', profile: 'eco', order: 5, icon: '👤', title: 'Perfil', navLabel: 'Perfil', render: renderProfileScreen });
+  // Perfil del consultor (order 4); las vistas 1-3 las registra dashboard.js
+  registerView({ id: 'cons-profile', profile: 'consultant', order: 4, icon: '👤', title: 'Perfil', navLabel: 'Perfil', render: renderProfileScreen });
 
   /* =======================================================
      EVENT DELEGATION inside the app
@@ -710,7 +821,11 @@
     'finish-trip': finishTrip,
     'show-routes': showRoutes,
     'recalculate-routes': recalculateRoutes,
-    'close-modal': closeModal
+    'close-modal': closeModal,
+    'select-eco': function () { selectProfile('eco'); },
+    'select-consultant': function () { selectProfile('consultant'); },
+    'change-profile': function () { showProfileSelection(); },
+    'logout': function () { closeApp(); showToast({ type: 'success', icon: '👋', title: 'Sesión cerrada', body: 'Vuelve pronto a moverte sostenible.' }); }
   };
 
   function handleAppChange(e) {
@@ -725,7 +840,7 @@
     Array.prototype.forEach.call(document.querySelectorAll('button'), function (btn) {
       const text = (btn.textContent || '').trim().toLowerCase();
       if (text === 'empezar ahora') {
-        btn.addEventListener('click', function () { openApp('trip'); });
+        btn.addEventListener('click', function () { openApp(); });
       }
     });
     // "Solicitar demo" (anchors) ya navegan al formulario de contacto por #hash.
@@ -786,10 +901,11 @@
     // Delegación global: cubre app-view, nav, banner y modal (que viven fuera de app-view)
     document.addEventListener('click', handleAppClick);
     document.addEventListener('change', handleAppChange);
-    $('#app-bg-banner').addEventListener('click', function () { navigateTo('trip'); });
+    $('#app-bg-banner').addEventListener('click', function () {
+      if (currentProfile !== 'eco') selectProfile('eco'); else navigateTo('eco-home');
+    });
     $('#app-credits-pill').addEventListener('click', function () {
-      // El módulo de créditos registra la vista 'credits'; si aún no existe, vamos a inicio.
-      navigateTo(views.some(function (v) { return v.id === 'credits'; }) ? 'credits' : 'trip');
+      if (currentProfile === 'eco') navigateTo('eco-rewards');
     });
 
     // refresco periódico del banner de segundo plano (US02)
