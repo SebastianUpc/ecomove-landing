@@ -32,7 +32,9 @@
       ] },
       trips: [],
       redemptions: [],
-      dashboard: { zone: 'all', period: '30', mode: 'all' }
+      dashboard: { zone: 'all', period: '30', mode: 'all' },
+      membership: { status: 'none', activatedAt: null, trialEndsAt: null, renewsAt: null },
+      auth: { loggedIn: false, name: null, email: null }
     };
   }
 
@@ -82,6 +84,10 @@
     return new Date(ts).toLocaleDateString('es-PE', {
       day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
     });
+  }
+
+  function formatDay(ts) {
+    return new Date(ts).toLocaleDateString('es-PE', { day: '2-digit', month: 'long', year: 'numeric' });
   }
 
   function formatNumber(n, decimals) {
@@ -160,7 +166,7 @@
     nav.hidden = false;
     // clase modificadora por perfil => cada menú se ve visualmente distinto
     nav.className = 'app__nav app__nav--' + currentProfile;
-    nav.innerHTML = profileViews(currentProfile).map(function (v) {
+    nav.innerHTML = profileViews(currentProfile).filter(function (v) { return !v.hidden; }).map(function (v) {
       const active = v.id === activeViewId;
       return '<button class="nav-tab' + (active ? ' nav-tab--active' : '') + '" ' +
         'type="button" data-view="' + v.id + '" aria-current="' + (active ? 'page' : 'false') + '">' +
@@ -170,9 +176,15 @@
   }
 
   function navigateTo(viewId) {
-    const view = views.find(function (v) { return v.id === viewId; });
+    let view = views.find(function (v) { return v.id === viewId; });
     if (!view) return;
-    activeViewId = viewId;
+    // Bloqueo por membresía: sin activar (o vencida) el consultor no entra a sus vistas
+    const gateId = membershipGateRedirect(view);
+    if (gateId && gateId !== view.id) {
+      view = views.find(function (v) { return v.id === gateId; });
+      if (!view) return;
+    }
+    activeViewId = view.id;
     const viewEl = $('#app-view');
     const inner = document.createElement('div');
     inner.className = 'app__view-inner';
@@ -186,6 +198,143 @@
   }
 
   function rerenderCurrent() { if (activeViewId) navigateTo(activeViewId); }
+
+  /* =======================================================
+     AUTH — LOGIN / REGISTRO (pantallas 02-03 del wireflow)
+     Autenticación simulada, sin backend: valida campos y
+     transiciona. Compartida por ambos perfiles; la sesión se
+     recuerda en localStorage (state.auth.loggedIn).
+     ======================================================= */
+  function showAuthScreen(mode) {
+    currentProfile = null;
+    activeViewId = null;
+    const viewEl = $('#app-view');
+    const inner = document.createElement('div');
+    inner.className = 'app__view-inner';
+    viewEl.innerHTML = '';
+    viewEl.appendChild(inner);
+    if (mode === 'register') renderRegisterScreen(inner); else renderLoginScreen(inner);
+    $('#app-view-title').textContent = mode === 'register' ? 'Crear cuenta' : 'Iniciar sesión';
+    $('#app-credits-pill').hidden = true;
+    viewEl.scrollTop = 0;
+    renderNav();
+    updateBackgroundBanner();
+  }
+
+  function authField(id, label, type, placeholder) {
+    return '<div class="field"><label class="field__label" for="' + id + '">' + label + '</label>' +
+      '<input class="field__control" id="' + id + '" type="' + type + '" placeholder="' + placeholder + '"></div>';
+  }
+
+  function renderLoginScreen(container) {
+    container.innerHTML =
+      '<div class="auth">' +
+        '<header class="view-head auth__head">' +
+          '<span class="view-head__eyebrow">Bienvenido de vuelta</span>' +
+          '<h1 class="view-head__title">Iniciar sesión</h1>' +
+          '<p class="view-head__subtitle">Ingresa a tu cuenta para continuar.</p>' +
+        '</header>' +
+        '<div class="panel auth__panel">' +
+          authField('login-email', 'Correo electrónico', 'email', 'correo@ejemplo.com') +
+          authField('login-password', 'Contraseña', 'password', '••••••••') +
+          '<div class="auth__forgot-row">' +
+            '<button class="auth__link" type="button" data-action="auth-forgot">¿Olvidaste tu contraseña?</button>' +
+          '</div>' +
+          '<p class="form-state form-state--error auth__error" id="login-error" role="alert" hidden></p>' +
+          '<button class="app-btn app-btn--primary app-btn--block" type="button" data-action="auth-login">Ingresar</button>' +
+          '<button class="app-btn app-btn--secondary app-btn--block" type="button" data-action="auth-google">' +
+            '<span class="auth__gicon" aria-hidden="true">G</span> Continuar con Google</button>' +
+        '</div>' +
+        '<p class="auth__switch">¿No tienes cuenta? ' +
+          '<button class="auth__link" type="button" data-action="auth-goto-register">Registrarse</button></p>' +
+        '<p class="auth__hint">Al ingresar aceptas los términos y privacidad</p>' +
+      '</div>';
+  }
+
+  function renderRegisterScreen(container) {
+    container.innerHTML =
+      '<div class="auth">' +
+        '<button class="auth__back" type="button" data-action="auth-goto-login" ' +
+          'aria-label="Volver a iniciar sesión">←</button>' +
+        '<header class="view-head auth__head">' +
+          '<span class="view-head__eyebrow">Únete a EcoMove</span>' +
+          '<h1 class="view-head__title">Crear cuenta</h1>' +
+          '<p class="view-head__subtitle">Regístrate para empezar a moverte sostenible.</p>' +
+        '</header>' +
+        '<div class="panel auth__panel">' +
+          authField('reg-name', 'Nombre completo', 'text', 'Nombre y apellido') +
+          authField('reg-email', 'Correo electrónico', 'email', 'correo@ejemplo.com') +
+          authField('reg-password', 'Contraseña', 'password', '••••••••') +
+          authField('reg-password2', 'Confirmar contraseña', 'password', '••••••••') +
+          '<label class="auth__terms"><input type="checkbox" id="reg-terms"> Acepto términos y condiciones</label>' +
+          '<p class="form-state form-state--error auth__error" id="reg-error" role="alert" hidden></p>' +
+          '<button class="app-btn app-btn--primary app-btn--block" type="button" id="reg-submit" ' +
+            'data-action="auth-register" disabled>Crear cuenta</button>' +
+          '<p class="auth__hint">Usa un correo válido para recibir confirmaciones</p>' +
+        '</div>' +
+        '<p class="auth__switch">' +
+          '<button class="auth__link" type="button" data-action="auth-goto-login">Ya tengo una cuenta</button></p>' +
+      '</div>';
+  }
+
+  function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  function showAuthError(id, message) {
+    const el = $('#' + id);
+    if (!el) return;
+    el.textContent = message;
+    el.hidden = false;
+  }
+
+  function submitLogin() {
+    const email = ($('#login-email').value || '').trim();
+    const password = $('#login-password').value || '';
+    if (!email || !password) {
+      showAuthError('login-error', 'Completa correo y contraseña para ingresar.');
+      return;
+    }
+    if (!isValidEmail(email)) {
+      showAuthError('login-error', 'Ingresa un correo electrónico válido.');
+      return;
+    }
+    completeAuth(email, null, 'Sesión iniciada');
+  }
+
+  function submitRegister() {
+    const name = ($('#reg-name').value || '').trim();
+    const email = ($('#reg-email').value || '').trim();
+    const password = $('#reg-password').value || '';
+    const password2 = $('#reg-password2').value || '';
+    if (!name || !email || !password || !password2) {
+      showAuthError('reg-error', 'Completa todos los campos para crear tu cuenta.');
+      return;
+    }
+    if (!isValidEmail(email)) {
+      showAuthError('reg-error', 'Ingresa un correo electrónico válido.');
+      return;
+    }
+    if (password !== password2) {
+      showAuthError('reg-error', 'Las contraseñas no coinciden.');
+      return;
+    }
+    if (!$('#reg-terms').checked) {
+      showAuthError('reg-error', 'Debes aceptar los términos y condiciones.');
+      return;
+    }
+    completeAuth(email, name, 'Cuenta creada');
+  }
+
+  function completeAuth(email, name, toastTitle) {
+    state.auth.loggedIn = true;
+    state.auth.email = email;
+    if (name) state.auth.name = name;
+    saveState();
+    showToast({ type: 'success', icon: '👋', title: toastTitle,
+      body: 'Bienvenido a EcoMove. Elige cómo quieres continuar.' });
+    showProfileSelection();
+  }
 
   /* =======================================================
      USER-TYPE SELECTION + PROFILE SCREENS
@@ -230,7 +379,7 @@
   function selectProfile(profile) {
     currentProfile = profile;
     $('#app-credits-pill').hidden = (profile !== 'eco');
-    const first = profileViews(profile)[0];
+    const first = profileViews(profile).filter(function (v) { return !v.hidden; })[0];
     if (first) navigateTo(first.id);
   }
 
@@ -248,9 +397,234 @@
         '<p class="profile-panel__name">' + escapeHtml(p.userName) + '</p>' +
         '<span class="badge badge--ok">' + escapeHtml(p.label) + '</span>' +
       '</div>' +
+      (currentProfile === 'consultant' ? membershipProfileSectionHtml() : '') +
       '<button class="app-btn app-btn--secondary app-btn--block" type="button" data-action="change-profile" ' +
         'style="margin-bottom:10px">🔄 Cambiar de perfil</button>' +
       '<button class="app-btn app-btn--ghost app-btn--block" type="button" data-action="logout">🚪 Cerrar sesión</button>';
+  }
+
+  /* =======================================================
+     CONSULTANT MEMBERSHIP — plan único "EcoMove Consultor"
+     Prueba gratis 7 días (sin tarjeta) → pago S/19.90/mes.
+     Estados: none | trial | active | expired. El flujo del
+     eco-usuario no pasa por aquí.
+     ======================================================= */
+  const MEMBERSHIP_PLAN = { name: 'EcoMove Consultor', priceLabel: 'S/19.90', periodLabel: 'mes', trialDays: 7 };
+  const DAY_MS = 86400000;
+
+  const MEMBERSHIP_BENEFITS = [
+    'Dashboard completo: KPIs, tendencias y tabla histórica',
+    'Mapa de calor con filtros por zona/distrito',
+    'Reportes trazables, exportables PDF/Excel',
+    'Histórico de 12 meses y alertas de zonas críticas',
+    'Multi-dispositivo (web + móvil) y soporte prioritario',
+    'Sin límite de zonas'
+  ];
+
+  function membership() {
+    const m = state.membership;
+    // sin backend, el vencimiento se deriva al momento de leer el estado
+    if (m.status === 'trial' && m.trialEndsAt && Date.now() > m.trialEndsAt) { m.status = 'expired'; saveState(); }
+    if (m.status === 'active' && m.renewsAt && Date.now() > m.renewsAt) { m.status = 'expired'; saveState(); }
+    return m;
+  }
+
+  function trialDaysLeft() {
+    const m = state.membership;
+    if (!m.trialEndsAt) return 0;
+    return Math.max(0, Math.ceil((m.trialEndsAt - Date.now()) / DAY_MS));
+  }
+
+  // Fecha relevante según cómo terminó/termina el plan (prueba o renovación)
+  function membershipKeyDate(m) { return m.trialEndsAt || m.renewsAt; }
+
+  // Devuelve la vista a la que hay que redirigir si la membresía bloquea `view`
+  function membershipGateRedirect(view) {
+    if (view.profile !== 'consultant' || view.id === 'cons-membership') return null;
+    const m = membership();
+    if (m.status === 'none') return 'cons-membership';
+    if (m.status === 'expired' && view.id !== 'cons-profile') return 'cons-membership';
+    return null;
+  }
+
+  function activateTrial() {
+    const m = state.membership;
+    if (m.status !== 'none') return;
+    m.status = 'trial';
+    m.activatedAt = Date.now();
+    m.trialEndsAt = Date.now() + MEMBERSHIP_PLAN.trialDays * DAY_MS;
+    saveState();
+    showToast({ type: 'success', icon: '🎁', title: 'Prueba gratis activada',
+      body: 'Acceso total por ' + MEMBERSHIP_PLAN.trialDays + ' días, hasta el ' + formatDay(m.trialEndsAt) + '.' });
+    navigateTo('cons-dashboard');
+  }
+
+  function confirmMembershipPayment() {
+    const m = state.membership;
+    // si el plan sigue vigente, la renovación se extiende desde la fecha actual de renovación
+    const base = (m.status === 'active' && m.renewsAt && m.renewsAt > Date.now()) ? m.renewsAt : Date.now();
+    m.status = 'active';
+    m.trialEndsAt = null;
+    m.renewsAt = base + 30 * DAY_MS;
+    saveState();
+    closeModal();
+    showToast({ type: 'success', icon: '💳', title: 'Pago confirmado (simulado)',
+      body: 'Plan ' + MEMBERSHIP_PLAN.name + ' activo. Próxima renovación: ' + formatDay(m.renewsAt) + '.' });
+    if (activeViewId === 'cons-membership') navigateTo('cons-dashboard'); else rerenderCurrent();
+  }
+
+  /* ---------- Badge discreto para Dashboard/Mapa/Reportes ---------- */
+  function membershipBadgeHtml() {
+    const m = membership();
+    if (m.status === 'trial') {
+      const days = trialDaysLeft();
+      return '<div class="membership-strip"><span class="badge badge--yellow">🎁 Prueba gratis · ' +
+        days + (days === 1 ? ' día restante' : ' días restantes') + '</span></div>';
+    }
+    if (m.status === 'active') {
+      return '<div class="membership-strip"><span class="badge badge--ok">✓ Plan activo</span></div>';
+    }
+    return '';
+  }
+
+  /* ---------- Pantalla de activación / bloqueo (antes de la 18) ---------- */
+  function renderMembershipGate(container) {
+    const m = membership();
+    if (m.status === 'expired') { renderMembershipExpired(container, m); return; }
+    container.innerHTML =
+      '<div class="membership-gate">' +
+        '<header class="view-head membership-gate__head">' +
+          '<span class="view-head__eyebrow">Membresía</span>' +
+          '<h1 class="view-head__title">Activa tu membresía de consultor</h1>' +
+          '<p class="view-head__subtitle">Para acceder al dashboard ambiental necesitas activar el plan ' +
+            MEMBERSHIP_PLAN.name + '.</p>' +
+        '</header>' +
+        '<div class="panel membership-plan">' +
+          '<span class="badge badge--yellow">Prueba gratis ' + MEMBERSHIP_PLAN.trialDays + ' días</span>' +
+          '<h2 class="membership-plan__name">' + MEMBERSHIP_PLAN.name + '</h2>' +
+          '<p class="membership-plan__price">' + MEMBERSHIP_PLAN.priceLabel +
+            '<span class="membership-plan__period">/' + MEMBERSHIP_PLAN.periodLabel + '</span></p>' +
+          '<ul class="check-list membership-plan__list">' +
+            MEMBERSHIP_BENEFITS.map(function (b) {
+              return '<li><span class="check-icon">✓</span> ' + escapeHtml(b) + '</li>';
+            }).join('') +
+          '</ul>' +
+          '<button class="app-btn app-btn--primary app-btn--block" type="button" data-action="activate-trial">' +
+            '🎁 Activar prueba gratis</button>' +
+          '<p class="membership-plan__note">Sin tarjeta para empezar · Cancela cuando quieras. ' +
+            'Al terminar la prueba podrás confirmar el pago desde tu perfil.</p>' +
+        '</div>' +
+        '<button class="app-btn app-btn--ghost app-btn--block" type="button" data-action="change-profile">' +
+          '← Volver a la selección de perfil</button>' +
+      '</div>';
+  }
+
+  function renderMembershipExpired(container, m) {
+    container.innerHTML =
+      '<div class="membership-gate">' +
+        '<header class="view-head membership-gate__head">' +
+          '<span class="view-head__eyebrow">Membresía</span>' +
+          '<h1 class="view-head__title">Membresía vencida</h1>' +
+          '<p class="view-head__subtitle">El acceso a Dashboard, Mapa y Reportes está bloqueado hasta reactivar tu plan.</p>' +
+        '</header>' +
+        '<div class="panel membership-plan">' +
+          '<span class="badge badge--warn">⚠ Vencida el ' + formatDay(membershipKeyDate(m)) + '</span>' +
+          '<h2 class="membership-plan__name">' + MEMBERSHIP_PLAN.name + '</h2>' +
+          '<p class="membership-plan__price">' + MEMBERSHIP_PLAN.priceLabel +
+            '<span class="membership-plan__period">/' + MEMBERSHIP_PLAN.periodLabel + '</span></p>' +
+          '<button class="app-btn app-btn--primary app-btn--block" type="button" data-action="open-payment">' +
+            '🔄 Reactivar membresía</button>' +
+          '<p class="membership-plan__note">Recuperarás el acceso total apenas confirmes el pago.</p>' +
+        '</div>' +
+        '<button class="app-btn app-btn--ghost app-btn--block" type="button" data-action="change-profile">' +
+          '← Volver a la selección de perfil</button>' +
+      '</div>';
+  }
+
+  /* ---------- Sección "Mi membresía" (pantalla Perfil, 21) ---------- */
+  function membershipRow(label, value) {
+    return '<li><span>' + escapeHtml(label) + '</span><strong>' + escapeHtml(value) + '</strong></li>';
+  }
+
+  function membershipProfileSectionHtml() {
+    const m = membership();
+    let statusBadge = '';
+    let rows = '';
+    let actions = '';
+
+    if (m.status === 'trial') {
+      statusBadge = '<span class="badge badge--yellow">🎁 Prueba gratis</span>';
+      rows = membershipRow('Días restantes', trialDaysLeft() + ' días') +
+        membershipRow('La prueba termina el', formatDay(m.trialEndsAt));
+      actions = '<button class="app-btn app-btn--primary app-btn--block" type="button" data-action="open-payment">' +
+        '💳 Confirmar pago</button>';
+    } else if (m.status === 'active') {
+      statusBadge = '<span class="badge badge--ok">✓ Plan activo</span>';
+      rows = membershipRow('Precio', MEMBERSHIP_PLAN.priceLabel + ' / ' + MEMBERSHIP_PLAN.periodLabel) +
+        membershipRow('Próxima renovación', formatDay(m.renewsAt));
+      actions = '<button class="app-btn app-btn--secondary app-btn--block" type="button" data-action="open-payment">' +
+        '⚙️ Gestionar membresía</button>';
+    } else if (m.status === 'expired') {
+      statusBadge = '<span class="badge badge--warn">⚠ Vencida</span>';
+      rows = membershipRow('Venció el', formatDay(membershipKeyDate(m)));
+      actions = '<button class="app-btn app-btn--primary app-btn--block" type="button" data-action="open-payment">' +
+        '🔄 Reactivar</button>';
+    } else {
+      statusBadge = '<span class="badge badge--neutral">Sin activar</span>';
+      actions = '<button class="app-btn app-btn--primary app-btn--block" type="button" data-view="cons-membership">' +
+        '🎁 Activar prueba gratis</button>';
+    }
+
+    return '<div class="panel membership-profile">' +
+      '<div class="membership-profile__head">' +
+        '<h2 class="panel__title" style="margin:0">Mi membresía</h2>' + statusBadge +
+      '</div>' +
+      '<ul class="membership-rows">' +
+        membershipRow('Plan', MEMBERSHIP_PLAN.name) + rows +
+      '</ul>' +
+      actions +
+      '</div>';
+  }
+
+  /* ---------- Modal de pago único (Perfil y pantalla de bloqueo) ---------- */
+  function openMembershipPaymentModal() {
+    const m = membership();
+    const isManage = m.status === 'active';
+    const title = isManage ? 'Gestionar membresía'
+      : (m.status === 'expired' ? 'Reactivar membresía' : 'Confirmar pago');
+    const base = (isManage && m.renewsAt && m.renewsAt > Date.now()) ? m.renewsAt : Date.now();
+    const nextRenewal = base + 30 * DAY_MS;
+
+    openModal(
+      '<div class="modal__header">' +
+        '<span class="modal__icon" aria-hidden="true">💳</span>' +
+        '<h2 class="modal__title">' + title + '</h2>' +
+        '<p class="modal__subtitle">Plan único ' + MEMBERSHIP_PLAN.name + '</p>' +
+      '</div>' +
+      '<div class="modal__body">' +
+        '<ul class="membership-rows">' +
+          membershipRow('Plan', MEMBERSHIP_PLAN.name) +
+          membershipRow('Precio', MEMBERSHIP_PLAN.priceLabel + ' / ' + MEMBERSHIP_PLAN.periodLabel) +
+          (m.status === 'trial' ? membershipRow('Prueba gratis hasta', formatDay(m.trialEndsAt)) : '') +
+          (isManage ? membershipRow('Renovación actual', formatDay(m.renewsAt)) : '') +
+          membershipRow(isManage ? 'Nueva renovación' : 'Próxima renovación', formatDay(nextRenewal)) +
+        '</ul>' +
+        '<div class="field" style="margin-top:12px">' +
+          '<label class="field__label" for="pay-method">Método de pago</label>' +
+          '<select class="field__control" id="pay-method">' +
+            '<option>Tarjeta de crédito / débito</option>' +
+            '<option>Yape</option>' +
+            '<option>Plin</option>' +
+          '</select>' +
+        '</div>' +
+        '<p class="membership-plan__note">Pago simulado (demo académica, sin backend).</p>' +
+      '</div>' +
+      '<div class="modal__footer">' +
+        '<button class="app-btn app-btn--primary app-btn--block" type="button" data-action="confirm-payment">' +
+          '💳 Confirmar pago ' + MEMBERSHIP_PLAN.priceLabel + '</button>' +
+        '<button class="app-btn app-btn--ghost app-btn--block" type="button" data-action="close-modal">Cancelar</button>' +
+      '</div>'
+    );
   }
 
   /* =======================================================
@@ -260,7 +634,8 @@
     $('#app-shell').hidden = false;
     document.body.classList.add('app-open');
     refreshCreditsPill();
-    showProfileSelection();     // siempre inicia en la selección de tipo de usuario
+    // sesión recordada: con login previo va directo a la selección de perfil
+    if (state.auth && state.auth.loggedIn) showProfileSelection(); else showAuthScreen('login');
     $('#app-view').focus();
   }
 
@@ -793,6 +1168,8 @@
   registerView({ id: 'eco-profile', profile: 'eco', order: 5, icon: '👤', title: 'Perfil', navLabel: 'Perfil', render: renderProfileScreen });
   // Perfil del consultor (order 4); las vistas 1-3 las registra dashboard.js
   registerView({ id: 'cons-profile', profile: 'consultant', order: 4, icon: '👤', title: 'Perfil', navLabel: 'Perfil', render: renderProfileScreen });
+  // Activación/bloqueo de membresía: oculta del menú, se llega por redirección
+  registerView({ id: 'cons-membership', profile: 'consultant', order: 0, icon: '💳', title: 'Membresía', hidden: true, render: renderMembershipGate });
 
   /* =======================================================
      EVENT DELEGATION inside the app
@@ -822,14 +1199,35 @@
     'show-routes': showRoutes,
     'recalculate-routes': recalculateRoutes,
     'close-modal': closeModal,
+    'activate-trial': activateTrial,
+    'open-payment': openMembershipPaymentModal,
+    'confirm-payment': confirmMembershipPayment,
+    'auth-login': submitLogin,
+    'auth-google': submitLogin,   // decorativo: mismo comportamiento que "Ingresar" en el prototipo
+    'auth-register': submitRegister,
+    'auth-goto-register': function () { showAuthScreen('register'); },
+    'auth-goto-login': function () { showAuthScreen('login'); },
+    'auth-forgot': function () {
+      showToast({ type: 'success', icon: '🔐', title: 'Recuperación de contraseña',
+        body: 'Función disponible próximamente (prototipo).' });
+    },
     'select-eco': function () { selectProfile('eco'); },
     'select-consultant': function () { selectProfile('consultant'); },
     'change-profile': function () { showProfileSelection(); },
-    'logout': function () { closeApp(); showToast({ type: 'success', icon: '👋', title: 'Sesión cerrada', body: 'Vuelve pronto a moverte sostenible.' }); }
+    'logout': function () {
+      state.auth.loggedIn = false;
+      saveState();
+      closeApp();
+      showToast({ type: 'success', icon: '👋', title: 'Sesión cerrada', body: 'Vuelve pronto a moverte sostenible.' });
+    }
   };
 
   function handleAppChange(e) {
     if (e.target.id === 'simulate-fraud') simulateFraud = e.target.checked;
+    if (e.target.id === 'reg-terms') {
+      const submitBtn = $('#reg-submit');
+      if (submitBtn) submitBtn.disabled = !e.target.checked;
+    }
   }
 
   /* =======================================================
@@ -841,6 +1239,14 @@
       const text = (btn.textContent || '').trim().toLowerCase();
       if (text === 'empezar ahora') {
         btn.addEventListener('click', function () { openApp(); });
+      }
+      // CTA de la sección de membresía: entra directo al flujo de consultor
+      // (si no hay sesión, openApp muestra primero el login compartido)
+      if (text === 'comenzar prueba gratis') {
+        btn.addEventListener('click', function () {
+          openApp();
+          if (state.auth && state.auth.loggedIn) selectProfile('consultant');
+        });
       }
     });
     // "Solicitar demo" (anchors) ya navegan al formulario de contacto por #hash.
@@ -923,7 +1329,7 @@
     addCreditsEntry: addCreditsEntry, refreshCreditsPill: refreshCreditsPill,
     escapeHtml: escapeHtml, formatDate: formatDate, formatNumber: formatNumber,
     formatDuration: formatDuration, uid: uid, appActions: appActions,
-    TRANSPORT_MODES: TRANSPORT_MODES
+    TRANSPORT_MODES: TRANSPORT_MODES, membershipBadgeHtml: membershipBadgeHtml
   };
 
   if (document.readyState === 'loading') {
