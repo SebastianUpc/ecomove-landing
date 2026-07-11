@@ -1143,6 +1143,110 @@ body.app-open { overflow: hidden; }
 }
 
 /* =========================================================
+   AUTH — LOGIN / REGISTRO (pantallas 02-03)
+   Inputs reutilizan .field/.field__control del DS vivo.
+   ========================================================= */
+.auth {
+  max-width: 400px;
+  margin: 0 auto;
+  padding-top: 8px;
+}
+
+.auth__head { text-align: center; }
+
+.auth__panel .field { margin-bottom: 12px; }
+
+.auth__forgot-row {
+  text-align: right;
+  margin: -4px 0 14px;
+}
+
+.auth__link {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-title);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--jade-dark);
+}
+
+.auth__link:hover { text-decoration: underline; }
+
+.auth__link:focus-visible {
+  outline: 2px solid var(--jade-action);
+  outline-offset: 2px;
+}
+
+.auth__panel .app-btn + .app-btn { margin-top: 10px; }
+
+.auth__error { margin-bottom: 12px; }
+
+.auth__gicon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--platinum);
+  font-size: 12px;
+  font-weight: 800;
+  color: #4285F4;
+}
+
+.auth__terms {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  color: var(--dark);
+  margin: 2px 0 14px;
+  cursor: pointer;
+}
+
+.auth__terms input {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  accent-color: var(--jade);
+}
+
+.auth__switch {
+  text-align: center;
+  font-size: 13px;
+  color: var(--gray);
+  margin: 16px 0 0;
+}
+
+.auth__hint {
+  text-align: center;
+  font-size: 12px;
+  color: var(--gray);
+  margin: 12px 0 0;
+}
+
+.auth__back {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid var(--platinum);
+  background: var(--white);
+  color: var(--dark);
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.auth__back:hover { background: var(--mint-bg); }
+
+.auth__back:focus-visible {
+  outline: 2px solid var(--jade-action);
+  outline-offset: 2px;
+}
+
+/* =========================================================
    CONSULTANT MEMBERSHIP (activación, badges, perfil, pago)
    ========================================================= */
 /* Badge de estado discreto sobre Dashboard/Mapa/Reportes */
