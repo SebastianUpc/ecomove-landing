@@ -16,17 +16,27 @@
     <div class="logo-box">
       <img src="assets/logo-ecomove.png" alt="Logo EcoMove" class="logo-img">
     </div>
-    <nav class="d-nav">
+    <nav class="d-nav" id="primary-nav" aria-label="Navegación principal">
       <a href="#hero">Inicio</a>
       <a href="#solucion">Cómo funciona</a>
       <a href="#beneficios-usuarios">Beneficios</a>
       <a href="#beneficios-consultores">Consultores</a>
       <a href="#contacto">Contacto</a>
     </nav>
-    <button class="btn btn-primary">Empezar ahora</button>
+    <div class="d-header__actions">
+      <button class="btn btn-primary d-header__cta">Empezar ahora</button>
+      <button class="menu-btn" id="mobile-menu-btn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav">☰</button>
+    </div>
   </header>
+  <nav class="m-nav" id="mobile-nav" aria-label="Menú de navegación" hidden>
+    <a href="#hero">Inicio</a>
+    <a href="#solucion">Cómo funciona</a>
+    <a href="#beneficios-usuarios">Beneficios</a>
+    <a href="#beneficios-consultores">Consultores</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
 
-  <!-- HERO SECTION DESKTOP -->
+  <!-- HERO SECTION -->
   <section class="section d-hero" id="hero">
     <div class="hero-col hero-text">
       <span class="tag">MOVILIDAD SOSTENIBLE</span>
@@ -344,290 +354,6 @@
       <h5>Privacidad</h5>
       <p>Política de privacidad</p>
     </div>
-  </footer>
-
-</div>
-
-<div class="frame frame-mobile">
-
-  <!-- Header -->
-  <header class="m-header">
-    <div class="logo-box logo-box-small">
-      <img src="assets/logo-ecomove.png" alt="Logo EcoMove" class="logo-img">
-    </div>
-    <button class="menu-btn" id="mobile-menu-btn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav">☰</button>
-  </header>
-  <nav class="m-nav" id="mobile-nav" aria-label="Menú móvil" hidden>
-    <a href="#hero">Inicio</a>
-    <a href="#solucion">Cómo funciona</a>
-    <a href="#beneficios-usuarios">Beneficios</a>
-    <a href="#beneficios-consultores">Consultores</a>
-    <a href="#contacto-mobile">Contacto</a>
-  </nav>
-
-  <!-- HERO SECTION MOBILE -->
-  <section class="section m-section">
-    <span class="tag">MOVILIDAD SOSTENIBLE</span>
-    <h2 class="h-title m-title">Muévete sostenible, reduce CO₂ y gana Eco-Créditos</h2>
-    <p class="p-text">EcoMove registra tus trayectos sostenibles, calcula tu CO₂ y te da recompensas.</p>
-    <button class="btn btn-primary full">Empezar ahora</button>
-    <a href="#contacto-mobile" class="btn btn-secondary full">Solicitar demo</a>
-    <div class="phone-mock m-visual">
-      <div class="phone-notch"></div>
-      <div class="phone-topbar">EcoMove</div>
-      <div class="phone-trip">
-        <span class="trip-chip">Viaje en curso</span>
-        <div class="phone-trip-icon">🚴</div>
-        <div class="phone-trip-stats">
-          <div class="phone-trip-stat">
-            <span class="phone-trip-label">Distancia</span>
-            <span class="phone-trip-value">2.4 km</span>
-          </div>
-          <div class="phone-trip-stat">
-            <span class="phone-trip-label">CO₂ reducido</span>
-            <span class="phone-trip-value">0.46 kg</span>
-          </div>
-          <div class="phone-trip-stat">
-            <span class="phone-trip-label">Eco-Créditos</span>
-            <span class="phone-trip-value accent">+24</span>
-          </div>
-        </div>
-      </div>
-      <div class="phone-card">
-        <div class="phone-card-row">
-          <span class="phone-card-label">CO₂ evitado hoy</span>
-          <span class="phone-card-value">1.2 kg</span>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" style="width:68%"></div></div>
-      </div>
-      <div class="phone-credit">
-        <span class="credit-icon">★</span>
-        <div>
-          <span class="phone-card-label">Eco-Créditos</span>
-          <span class="phone-card-value">480 pts</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECCIÓN PROBLEMA MOBILE -->
-  <section class="section m-section section-alt">
-    <span class="eyebrow">EL PROBLEMA</span>
-    <h3 class="s-title">El problema</h3>
-    <div class="grid grid-1">
-      <div class="card">
-        <div class="icon-badge icon-badge-red">🚗</div>
-        <h4 class="c-title">Tráfico</h4>
-        <p class="c-text">Congestión vehicular diaria.</p>
-      </div>
-      <div class="card">
-        <div class="icon-badge icon-badge-red">🏭</div>
-        <h4 class="c-title">Contaminación</h4>
-        <p class="c-text">Altas emisiones de CO₂.</p>
-      </div>
-      <div class="card">
-        <div class="icon-badge icon-badge-red">⚠️</div>
-        <h4 class="c-title">Inseguridad</h4>
-        <p class="c-text">Rutas poco confiables.</p>
-      </div>
-      <div class="card">
-        <div class="icon-badge icon-badge-red">📉</div>
-        <h4 class="c-title">Falta de datos</h4>
-        <p class="c-text">Poca visibilidad ambiental.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECCIÓN SOLUCIÓN MOBILE -->
-  <section class="section m-section">
-    <span class="eyebrow">LA SOLUCIÓN</span>
-    <h3 class="s-title">La solución EcoMove</h3>
-    <p class="p-text">Registra trayectos, calcula CO₂, entrega Eco-Créditos y genera datos ambientales.</p>
-    <div class="transport-panel">
-      <div class="transport-chip"><span>🚶</span> Caminata</div>
-      <div class="transport-chip"><span>🚲</span> Bicicleta</div>
-      <div class="transport-chip"><span>🛴</span> Scooter</div>
-      <div class="transport-total">
-        <span class="phone-card-label">Reducción estimada</span>
-        <span class="phone-card-value big">-42% CO₂</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- FUNCIONALIDADES PRINCIPALES MOBILE -->
-  <section class="section m-section section-alt">
-    <span class="eyebrow">FUNCIONALIDADES</span>
-    <h3 class="s-title">Funcionalidades</h3>
-    <div class="grid grid-1">
-      <div class="card">
-        <div class="icon-badge">📍</div>
-        <h4 class="c-title">Registro GPS</h4>
-        <p class="c-text">Seguimiento en tiempo real.</p>
-      </div>
-      <div class="card">
-        <div class="icon-badge">🌱</div>
-        <h4 class="c-title">Cálculo CO₂</h4>
-        <p class="c-text">Emisiones evitadas por viaje.</p>
-      </div>
-      <div class="card">
-        <div class="icon-badge icon-badge-yellow">🏆</div>
-        <h4 class="c-title">Eco-Créditos</h4>
-        <p class="c-text">Puntos por movilidad sostenible.</p>
-      </div>
-      <div class="card">
-        <div class="icon-badge">🗺️</div>
-        <h4 class="c-title">Rutas</h4>
-        <p class="c-text">Sugerencias de rutas sostenibles.</p>
-      </div>
-      <div class="card">
-        <div class="icon-badge icon-badge-yellow">🎁</div>
-        <h4 class="c-title">Recompensas</h4>
-        <p class="c-text">Canje de Eco-Créditos.</p>
-      </div>
-      <div class="card">
-        <div class="icon-badge">📊</div>
-        <h4 class="c-title">Dashboard</h4>
-        <p class="c-text">Métricas de impacto ambiental.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- BENEFICIOS ECO-USUARIOS MOBILE -->
-  <section class="section m-section">
-    <span class="eyebrow">PARA ECO-USUARIOS</span>
-    <h3 class="s-title">Para eco-usuarios</h3>
-    <div class="grid grid-1">
-      <div class="card">
-        <div class="icon-badge">🌿</div>
-        <h4 class="c-title">Viajes sostenibles</h4>
-        <p class="c-text">Opciones de traslado más limpias.</p>
-      </div>
-      <div class="card">
-        <div class="icon-badge">📈</div>
-        <h4 class="c-title">CO₂ reducido</h4>
-        <p class="c-text">Impacto ambiental medible.</p>
-      </div>
-      <div class="card">
-        <div class="icon-badge icon-badge-yellow">🎖️</div>
-        <h4 class="c-title">Recompensas</h4>
-        <p class="c-text">Beneficios por Eco-Créditos.</p>
-      </div>
-    </div>
-    <div class="progress-panel">
-      <div class="progress-panel-header">
-        <span class="phone-card-label">Tu progreso — Julio 2026</span>
-        <span class="badge-yellow">480 pts</span>
-      </div>
-      <div class="progress-week">
-        <div class="progress-day"><div class="bar" style="height:40%"></div><span>L</span></div>
-        <div class="progress-day"><div class="bar" style="height:65%"></div><span>M</span></div>
-        <div class="progress-day"><div class="bar" style="height:50%"></div><span>X</span></div>
-        <div class="progress-day"><div class="bar" style="height:80%"></div><span>J</span></div>
-        <div class="progress-day"><div class="bar" style="height:60%"></div><span>V</span></div>
-        <div class="progress-day"><div class="bar" style="height:90%"></div><span>S</span></div>
-        <div class="progress-day"><div class="bar" style="height:30%"></div><span>D</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BENEFICIOS CONSULTORES MOBILE -->
-  <section class="section m-section section-alt">
-    <span class="eyebrow">PARA CONSULTORES</span>
-    <h3 class="s-title">Para consultores</h3>
-    <div class="grid grid-1">
-      <div class="card">
-        <div class="icon-badge">🖥️</div>
-        <h4 class="c-title">Dashboard</h4>
-        <p class="c-text">Panel con indicadores clave.</p>
-      </div>
-      <div class="card">
-        <div class="icon-badge">📊</div>
-        <h4 class="c-title">Métricas</h4>
-        <p class="c-text">Datos agregados ambientales.</p>
-      </div>
-      <div class="card">
-        <div class="icon-badge">🧭</div>
-        <h4 class="c-title">Filtros</h4>
-        <p class="c-text">Por zona y periodo.</p>
-      </div>
-      <div class="card">
-        <div class="icon-badge">📄</div>
-        <h4 class="c-title">Reportes</h4>
-        <p class="c-text">Exportación auditable.</p>
-      </div>
-    </div>
-    <div class="dashboard-panel">
-      <div class="dashboard-toolbar">
-        <span class="chip">Zona</span>
-        <span class="chip">Periodo</span>
-      </div>
-      <div class="dashboard-stats">
-        <div class="dash-stat"><strong>18.2 t</strong><span>CO₂ evitado</span></div>
-        <div class="dash-stat"><strong>6,340</strong><span>Trayectos</span></div>
-      </div>
-      <div class="dashboard-chart">
-        <div class="dash-bar" style="height:35%"></div>
-        <div class="dash-bar" style="height:55%"></div>
-        <div class="dash-bar" style="height:45%"></div>
-        <div class="dash-bar" style="height:70%"></div>
-        <div class="dash-bar" style="height:60%"></div>
-        <div class="dash-bar" style="height:85%"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA FINAL MOBILE -->
-  <section class="section m-section cta-block">
-    <h3 class="s-title cta-title">Transforma la movilidad sostenible</h3>
-    <button class="btn btn-cta-primary full">Empezar ahora</button>
-    <a href="#contacto-mobile" class="btn btn-cta-secondary full">Solicitar demo</a>
-  </section>
-
-  <!-- FORMULARIO DE CONTACTO MOBILE -->
-  <section class="section m-section" id="contacto-mobile">
-    <span class="eyebrow">CONTACTO</span>
-    <h3 class="s-title">Hablemos de tu próximo paso sostenible</h3>
-    <form class="contact-form" id="contact-form-mobile" novalidate>
-      <div class="form-group">
-        <label class="form-label" for="contact-type-mobile">Tipo de consulta</label>
-        <select class="form-select" id="contact-type-mobile" name="type" required>
-          <option value="">Selecciona una opción</option>
-          <option value="eco-usuario">Soy eco-usuario</option>
-          <option value="consultora">Consultora / empresa (demo B2B)</option>
-          <option value="prensa">Prensa / otros</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="contact-name-mobile">Nombre</label>
-        <input class="form-input" id="contact-name-mobile" name="name" type="text" placeholder="Nombre completo" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="contact-email-mobile">Correo electrónico</label>
-        <input class="form-input" id="contact-email-mobile" name="email" type="email" placeholder="correo@ejemplo.com" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="contact-company-mobile">Empresa / consultora (opcional)</label>
-        <input class="form-input" id="contact-company-mobile" name="company" type="text" placeholder="Nombre de la empresa">
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="contact-message-mobile">Mensaje</label>
-        <textarea class="form-textarea" id="contact-message-mobile" name="message" placeholder="Escribe tu consulta..." required></textarea>
-      </div>
-      <p class="form-state form-state--error" role="alert" hidden>Completa los campos obligatorios antes de enviar.</p>
-      <p class="form-state form-state--confirm" role="status" hidden>Tu consulta fue enviada. Te responderemos pronto.</p>
-      <button class="btn btn-primary full" type="submit">Enviar consulta</button>
-    </form>
-  </section>
-
-  <!-- FOOTER MOBILE -->
-  <footer class="m-footer">
-    <div class="logo-box logo-box-small">
-      <img src="assets/logo-ecomove.png" alt="Logo EcoMove" class="logo-img">
-    </div>
-    <p>Contacto</p>
-    <p>Redes</p>
-    <p>Términos</p>
-    <p>Privacidad</p>
   </footer>
 
 </div>
