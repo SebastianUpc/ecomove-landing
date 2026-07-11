@@ -1,0 +1,1064 @@
+/* =========================================================
+   EcoMove - Mobile Applications Mock-ups (4.4.3) - Alta fidelidad
+   Design System reutilizado tal cual de landing-mockup-4.3.2:
+   Verde jade, Verde menta, Amarillo pastel, Inter + Roboto
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+  --jade: #00BB77;
+  --jade-dark: #009962;
+  --jade-action: #007A4D;
+  --mint: #ADEBB3;
+  --mint-bg: #EAF9EC;
+  --yellow: #FFEE8C;
+  --white: #FFFFFF;
+  --platinum: #D9D9D9;
+  --dark: #2C3E50;
+  --gray: #6B7280;
+  --red: #E74C3C;
+
+  /* Copiados literalmente de landing-mockup-4.3.2/styles.css (no son valores nuevos):
+     #AAB4BD se usa en .dash-stat span / .footer-col p / .m-footer p
+     #f2f4f3 es el background del body en la landing */
+  --dark-muted: #AAB4BD;
+  --page-bg: #f2f4f3;
+
+  --font-title: 'Inter', 'Segoe UI', Arial, sans-serif;
+  --font-body: 'Roboto', 'Segoe UI', Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 40px 24px 120px;
+  font-family: var(--font-body);
+  background: var(--page-bg);
+  color: var(--dark);
+}
+
+strong {
+  font-family: var(--font-title);
+  font-weight: 700;
+  color: var(--dark);
+}
+
+/* ---------- Page header ---------- */
+
+.wireframes-page {
+  max-width: 1760px;
+  margin: 0 auto;
+}
+
+.page-title {
+  text-align: center;
+  font-family: var(--font-title);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--dark);
+  margin: 0 0 10px;
+}
+
+.page-subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: var(--gray);
+  max-width: 720px;
+  margin: 0 auto 48px;
+  line-height: 1.6;
+}
+
+/* ---------- Grid ---------- */
+
+.screens-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 390px);
+  gap: 56px 40px;
+  justify-content: center;
+}
+
+.screen-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.screen-title {
+  font-family: var(--font-title);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dark);
+  background: var(--white);
+  border: 1px solid var(--platinum);
+  border-radius: 6px;
+  padding: 6px 14px;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.user-tag {
+  display: inline-block;
+  font-family: var(--font-title);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--jade-dark);
+  background: var(--mint-bg);
+  border: 1px solid var(--mint);
+  border-radius: 10px;
+  padding: 2px 8px;
+  margin-bottom: 8px;
+}
+
+/* Acento distinto para el segmento consultor ambiental (mismo par
+   oscuro + menta que usa .dashboard-panel en la landing) */
+.user-tag--consultor {
+  color: var(--mint);
+  background: var(--dark);
+  border-color: var(--dark);
+}
+
+/* ---------- Phone frame ---------- */
+
+.phone-frame {
+  width: 390px;
+  min-height: 760px;
+  background: var(--white);
+  border: 1px solid var(--platinum);
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(44, 62, 80, 0.14);
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-statusbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 22px;
+  font-family: var(--font-title);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--white);
+  background: var(--dark);
+  flex-shrink: 0;
+}
+
+.status-icons {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  letter-spacing: 1px;
+}
+
+.phone-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--white);
+  border-bottom: 1px solid var(--platinum);
+  flex-shrink: 0;
+}
+
+.phone-header-back {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--platinum);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--dark);
+  flex-shrink: 0;
+  background: var(--white);
+}
+
+.phone-header-title {
+  font-family: var(--font-title);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.phone-header-sub {
+  font-size: 11px;
+  color: var(--gray);
+  margin-top: 2px;
+}
+
+.phone-header-side {
+  margin-left: auto;
+  font-family: var(--font-title);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--jade-dark);
+  background: var(--mint-bg);
+  border: 1px solid var(--mint);
+  border-radius: 12px;
+  padding: 4px 10px;
+}
+
+.phone-content {
+  flex: 1;
+  padding: 20px 20px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--white);
+}
+
+.phone-content--centered {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ---------- Typography helpers ---------- */
+
+.wire-h1 {
+  font-family: var(--font-title);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--dark);
+  margin: 0;
+}
+
+.wire-h2 {
+  font-family: var(--font-title);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--dark);
+  margin: 0 0 4px;
+}
+
+.wire-h3 {
+  font-family: var(--font-title);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dark);
+  margin: 0 0 4px;
+}
+
+.wire-text {
+  font-size: 12.5px;
+  color: var(--gray);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.wire-text-sm {
+  font-size: 11px;
+  color: var(--gray);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.wire-label {
+  font-family: var(--font-title);
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--gray);
+}
+
+.wire-value {
+  font-family: var(--font-title);
+  font-weight: 700;
+  color: var(--dark);
+}
+
+/* ---------- Placeholders (color real en vez de gris) ---------- */
+
+.placeholder-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  background: var(--jade);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-title);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 16px rgba(0, 187, 119, 0.3);
+}
+
+.placeholder-logo--sm {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  font-size: 8px;
+}
+
+/* Logo real de EcoMove (reutilizado tal cual de landing-mockup-4.3.2/assets) */
+.mobile-logo-img {
+  height: 84px;
+  width: auto;
+  display: block;
+  border-radius: 10px;
+}
+
+.mobile-logo-img--sm {
+  height: 34px;
+  border-radius: 7px;
+}
+
+.placeholder-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--mint-bg);
+  border: 1px solid var(--mint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--jade-dark);
+  flex-shrink: 0;
+}
+
+.placeholder-icon--circle {
+  border-radius: 50%;
+}
+
+.placeholder-icon--sm {
+  width: 28px;
+  height: 28px;
+  font-size: 13px;
+  border-radius: 8px;
+}
+
+.placeholder-icon--lg {
+  width: 64px;
+  height: 64px;
+  font-size: 26px;
+}
+
+.placeholder-map {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  /* Patr�n de "calles": 3 familias de l�neas finas a �ngulos y
+     espaciados distintos para simular una grilla irregular tipo
+     callejero, sobre el mismo degrad� jade ya usado (no es un mapa
+     real, es geometr�a simple). */
+  background:
+    repeating-linear-gradient(97deg, rgba(255,255,255,0.20) 0px, rgba(255,255,255,0.20) 1px, transparent 1px, transparent 32px),
+    repeating-linear-gradient(34deg, rgba(255,255,255,0.15) 0px, rgba(255,255,255,0.15) 1px, transparent 1px, transparent 44px),
+    repeating-linear-gradient(-9deg, rgba(255,255,255,0.12) 0px, rgba(255,255,255,0.12) 1px, transparent 1px, transparent 57px),
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 45%),
+    linear-gradient(135deg, var(--jade) 0%, var(--jade-dark) 100%);
+  border: 1px solid var(--platinum);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.placeholder-map--lg {
+  height: 280px;
+}
+
+.map-route {
+  position: absolute;
+  border-top: 3px dashed rgba(255, 255, 255, 0.85);
+  transform-origin: left center;
+}
+
+.map-point {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--dark);
+  border: 3px solid var(--white);
+}
+
+/* Verde jade para el pin de destino: distingue origen/destino sin
+   tomar prestado el acento amarillo, que el Style Guidelines reserva
+   a Eco-Cr�ditos, recompensas y logros. */
+.map-point--end {
+  background: var(--jade-dark);
+}
+
+.map-label {
+  position: absolute;
+  font-family: var(--font-title);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--dark);
+  background: var(--white);
+  border: 1px solid var(--platinum);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+.placeholder-heatmap {
+  width: 100%;
+  height: 220px;
+  border: 1px solid var(--platinum);
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  overflow: hidden;
+}
+
+.heat-cell { background: var(--mint-bg); border: 1px solid var(--white); }
+.heat-cell--md { background: var(--mint); }
+.heat-cell--hi { background: var(--jade-dark); }
+
+.placeholder-chart {
+  width: 100%;
+  height: 140px;
+  border: 1px solid var(--platinum);
+  border-radius: 12px;
+  background: var(--white);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 16px;
+}
+
+.chart-bar {
+  flex: 1;
+  background: linear-gradient(180deg, var(--jade) 0%, var(--jade-dark) 100%);
+  border-radius: 3px 3px 0 0;
+}
+
+.placeholder-chart--circle {
+  height: 150px;
+  align-items: center;
+  justify-content: center;
+}
+
+.donut {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: conic-gradient(var(--jade) 0deg 230deg, var(--mint-bg) 230deg 360deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.donut-hole {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-title);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--jade-dark);
+}
+
+/* ---------- Cards ---------- */
+
+.wire-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--white);
+  border: 1px solid var(--platinum);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.wire-card--selected {
+  border: 2px solid var(--jade);
+  background: var(--mint-bg);
+}
+
+.wire-card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.option-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.metric-box {
+  background: var(--mint-bg);
+  border: 1px solid var(--mint);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+}
+
+.metric-box strong {
+  display: block;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--jade-dark);
+  margin-top: 2px;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.kpi-card {
+  background: var(--mint-bg);
+  border: 1px solid var(--mint);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.kpi-card strong {
+  display: block;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--jade-dark);
+  margin-top: 4px;
+}
+
+/* ---------- Dashboard panel ----------
+   Acento distinto para pantallas de consultor ambiental: mismo
+   patron fondo oscuro + texto menta que .dashboard-panel en la
+   landing ("Beneficios para consultores"). Reutilizado tal cual,
+   solo aplicado como contenedor dentro del phone-content. */
+
+.dashboard-panel {
+  background: var(--dark);
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dashboard-panel .wire-label,
+.dashboard-panel .wire-text,
+.dashboard-panel .phone-header-sub { color: var(--dark-muted); }
+
+.dashboard-panel .wire-h3,
+.dashboard-panel strong { color: var(--white); }
+
+.dashboard-panel .kpi-card,
+.dashboard-panel .metric-box,
+.dashboard-panel .wire-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.dashboard-panel .kpi-card strong,
+.dashboard-panel .metric-box strong,
+.dashboard-panel .wire-value { color: var(--mint); }
+
+.dashboard-panel .placeholder-chart,
+.dashboard-panel .placeholder-heatmap,
+.dashboard-panel .placeholder-map {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.dashboard-panel .heat-cell { background: rgba(255, 255, 255, 0.08); }
+.dashboard-panel .heat-cell--md { background: var(--jade); }
+.dashboard-panel .heat-cell--hi { background: var(--mint); }
+
+.dashboard-panel .chip {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--white);
+}
+
+.dashboard-panel .chip--active {
+  background: var(--mint);
+  color: var(--dark);
+  border-color: var(--mint);
+}
+
+.dashboard-panel .wire-input {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.24);
+  color: var(--white);
+}
+
+.dashboard-panel .wire-button--secondary {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.dashboard-panel .list-item { border-bottom-color: rgba(255, 255, 255, 0.14); }
+.dashboard-panel .list-item .wire-text { color: var(--white); }
+.dashboard-panel .list-item-arrow { color: var(--dark-muted); }
+
+/* ---------- Buttons ---------- */
+
+.wire-button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-title);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 14px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.wire-button--primary {
+  background: var(--jade-action);
+  color: var(--white);
+  border: none;
+  box-shadow: 0 6px 16px rgba(0, 122, 77, 0.35);
+}
+
+.wire-button--secondary {
+  background: var(--white);
+  color: var(--jade-dark);
+  border: 2px solid var(--jade);
+}
+
+.wire-button--ghost {
+  background: transparent;
+  color: var(--gray);
+  border: none;
+  text-decoration: underline;
+  padding: 8px;
+}
+
+.wire-button--sm {
+  padding: 8px 14px;
+  font-size: 12px;
+  width: auto;
+  display: inline-block;
+  min-height: 44px;
+}
+
+.wire-button:hover {
+  filter: brightness(0.96);
+}
+
+.wire-button:active {
+  transform: scale(0.98);
+}
+
+.wire-button:focus-visible,
+.chip:focus-visible,
+.tab:focus-visible {
+  outline: 2px solid var(--jade-action);
+  outline-offset: 2px;
+}
+
+/* ---------- Inputs ---------- */
+
+.wire-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.wire-input {
+  width: 100%;
+  height: 44px;
+  border: 1px solid var(--platinum);
+  border-radius: 8px;
+  background: var(--white);
+  padding: 0 14px;
+  font-size: 12px;
+  color: var(--gray);
+  display: flex;
+  align-items: center;
+}
+
+.wire-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  color: var(--gray);
+}
+
+.wire-checkbox-box {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--platinum);
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* ---------- Chips ---------- */
+
+.chip-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  font-family: var(--font-title);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--jade-dark);
+  background: var(--mint-bg);
+  border: 1px solid var(--mint);
+  border-radius: 20px;
+  padding: 6px 14px;
+}
+
+.chip--active {
+  background: var(--jade-action);
+  color: var(--white);
+  border-color: var(--jade-action);
+}
+
+/* ---------- Switch ---------- */
+
+.switch-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 44px;
+}
+
+.switch-wire {
+  width: 38px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--platinum);
+  border: none;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.switch-wire::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: 0 1px 3px rgba(44, 62, 80, 0.3);
+}
+
+.switch-wire--on {
+  background: var(--jade);
+}
+
+.switch-wire--on::after {
+  left: auto;
+  right: 2px;
+}
+
+.dashboard-panel .switch-wire { background: rgba(255, 255, 255, 0.22); }
+.dashboard-panel .switch-wire--on { background: var(--mint); }
+.dashboard-panel .switch-wire--on::after { background: var(--dark); }
+
+/* ---------- List items ---------- */
+
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--platinum);
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.list-item-arrow {
+  margin-left: auto;
+  color: var(--gray);
+  font-size: 13px;
+}
+
+/* ---------- Badges ---------- */
+
+.badge-row {
+  display: flex;
+  gap: 10px;
+}
+
+.badge-wire {
+  flex: 1;
+  text-align: center;
+  border: 1px solid var(--mint);
+  border-radius: 10px;
+  padding: 10px 6px;
+  background: var(--mint-bg);
+}
+
+.badge-wire .placeholder-icon {
+  margin: 0 auto 6px;
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: #6B5900;
+}
+
+.badge-wire span {
+  font-size: 9.5px;
+  color: var(--dark);
+  display: block;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+/* ---------- Progress ---------- */
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background: var(--platinum);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-fill-wire {
+  height: 100%;
+  background: var(--jade);
+  border-radius: 6px;
+}
+
+.divider-wire {
+  border: none;
+  border-top: 1px dashed var(--platinum);
+  margin: 4px 0;
+}
+
+/* ---------- Bottom nav ---------- */
+
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 8px 14px;
+  background: var(--white);
+  border-top: 1px solid var(--platinum);
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-title);
+  font-size: 9.5px;
+  color: var(--gray);
+}
+
+.bottom-nav-item .placeholder-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  font-size: 13px;
+  background: var(--mint-bg);
+  border-color: var(--mint);
+  color: var(--jade-dark);
+}
+
+.bottom-nav-item--active {
+  color: var(--jade-dark);
+  font-weight: 700;
+}
+
+.bottom-nav-item--active .placeholder-icon {
+  background: var(--jade);
+  border-color: var(--jade);
+  color: var(--white);
+}
+
+/* ---------- Avatar de iniciales (consistente en las 6 pantallas
+   donde aparecen Carlos Mendoza y Ricardo Valdivia; sin foto de
+   referencia confirmada se usa el mismo tratamiento siempre) ---------- */
+
+.avatar-initials {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--mint-bg);
+  border: 2px solid var(--mint);
+  color: var(--jade-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+}
+
+.avatar-initials--sm {
+  width: 36px;
+  height: 36px;
+  font-size: 12px;
+}
+
+.avatar-initials--lg {
+  width: 64px;
+  height: 64px;
+  font-size: 22px;
+  margin: 0 auto;
+}
+
+/* Mismo acento oscuro + menta que .user-tag--consultor y .dashboard-panel,
+   reutilizado para el segmento consultor ambiental (Ricardo Valdivia). */
+.avatar-initials--consultor {
+  background: var(--dark);
+  border-color: var(--dark);
+  color: var(--mint);
+}
+
+/* ---------- Badge de Eco-Cr�ditos (acento amarillo pastel) ----------
+   El Style Guidelines reserva el amarillo pastel a "Eco-Cr�ditos,
+   recompensas y logros". Se aplica como fondo con texto oscuro
+   (mismo par que .badge-wire .placeholder-icon) para mantener
+   legibilidad, nunca como texto amarillo sobre blanco. */
+
+.eco-credit-badge {
+  display: inline-block;
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 12px;
+  color: #6B5900;
+  background: var(--yellow);
+  border-radius: 8px;
+  padding: 2px 9px;
+}
+
+.metric-box--credits {
+  background: var(--yellow);
+  border-color: var(--yellow);
+}
+
+.metric-box--credits strong {
+  color: #6B5900;
+}
+
+.phone-header-side--credits {
+  color: #6B5900;
+  background: var(--yellow);
+  border-color: var(--yellow);
+}
+
+/* ---------- Set de �conos de l�nea (transporte, logros, recompensas)
+   Un mismo estilo (trazo 1.8px, extremos y uniones redondeadas,
+   sin relleno, 24x24) reemplaza los emojis mixtos para que los tres
+   sets se lean como un solo sistema. ---------- */
+
+.icon-line {
+  width: 20px;
+  height: 20px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- Route cards (08. Mapa / rutas sostenibles) ---------- */
+
+.route-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--white);
+  border: 1px solid var(--platinum);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+
+.route-card--selected {
+  border: 2px solid var(--jade);
+  background: var(--mint-bg);
+}
+
+/* ---------- Status pill (seguimiento en segundo plano / validacion) ---------- */
+
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-title);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--jade-dark);
+  background: var(--mint-bg);
+  border: 1px solid var(--mint);
+  border-radius: 20px;
+  padding: 8px 14px;
+  min-height: 44px;
+}
+
+.status-pill--center {
+  align-self: center;
+}
+
+.status-pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--jade);
+  flex-shrink: 0;
+  animation: status-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/* ---------- Tabs (14. Recompensas / Marketplace) ---------- */
+
+.tab-row {
+  display: flex;
+  gap: 6px;
+  border-bottom: 1px solid var(--platinum);
+}
+
+.tab {
+  font-family: var(--font-title);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gray);
+  padding: 8px 6px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+}
+
+.tab--active {
+  color: var(--jade-dark);
+  border-bottom-color: var(--jade);
+}
+
+.tab-panel-preview {
+  padding-top: 8px;
+  border-top: 1px dashed var(--platinum);
+}

@@ -1,0 +1,14 @@
+# Binarios pesados y material de referencia (no forman parte del código)
+*.pdf
+*.png
+tmp/
+.agents/
+.claude/
+
+# Sistema
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Excepción: conservar los assets del mock-up funcional
+!landing-mockup-4.3.2/assets/**

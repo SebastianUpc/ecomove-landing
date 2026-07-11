@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4.4.1 Mobile Applications Wireframes — EcoMove</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wireframes-page">
+
+  <h1 class="page-title">4.4.1 Mobile Applications Wireframes — EcoMove</h1>
+  <p class="page-subtitle">Wireframes móviles en baja fidelidad para la aplicación Android de EcoMove, considerando los flujos de eco-usuario y consultor ambiental.</p>
+
+  <div class="screens-grid">
+
+    <!-- ============================================================ -->
+    <!-- 01. SPLASH / BIENVENIDA -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Onboarding</span>
+      <p class="screen-title">01. Splash / Bienvenida</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-content phone-content--centered">
+          <div class="placeholder-logo">LOGO</div>
+          <h1 class="wire-h1">EcoMove</h1>
+          <p class="wire-text">Movilidad sostenible</p>
+          <p class="wire-text-sm" style="max-width:240px;">Registra tus trayectos, reduce CO₂ y gana recompensas</p>
+          <div style="margin-top:auto; width:100%; display:flex; flex-direction:column; gap:14px; align-items:center;">
+            <div class="progress-track" style="max-width:160px;"><div class="progress-fill-wire" style="width:60%"></div></div>
+            <button class="wire-button wire-button--secondary" style="width:auto; padding:12px 32px;">Comenzar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 02. LOGIN -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Onboarding</span>
+      <p class="screen-title">02. Login</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header">
+          <div class="placeholder-logo placeholder-logo--sm">LOGO</div>
+          <span class="phone-header-title">EcoMove</span>
+        </div>
+        <div class="phone-content">
+          <h1 class="wire-h1">Iniciar sesión</h1>
+          <div class="wire-input-group">
+            <span class="wire-label">Correo electrónico</span>
+            <div class="wire-input">correo@ejemplo.com</div>
+          </div>
+          <div class="wire-input-group">
+            <span class="wire-label">Contraseña</span>
+            <div class="wire-input">••••••••</div>
+          </div>
+          <a class="wire-text-sm" style="align-self:flex-end;">¿Olvidaste tu contraseña?</a>
+          <button class="wire-button wire-button--primary">Ingresar</button>
+          <button class="wire-button wire-button--secondary">Continuar con Google</button>
+          <hr class="divider-wire">
+          <p class="wire-text" style="text-align:center;">¿No tienes cuenta? <strong>Registrarse</strong></p>
+          <p class="wire-text-sm" style="text-align:center;">Al ingresar aceptas los términos y privacidad</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 03. REGISTRO -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Onboarding</span>
+      <p class="screen-title">03. Registro</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header">
+          <span class="phone-header-back">←</span>
+          <span class="phone-header-title">Crear cuenta</span>
+        </div>
+        <div class="phone-content">
+          <div class="wire-input-group"><span class="wire-label">Nombre completo</span><div class="wire-input">Nombre y apellido</div></div>
+          <div class="wire-input-group"><span class="wire-label">Correo electrónico</span><div class="wire-input">correo@ejemplo.com</div></div>
+          <div class="wire-input-group"><span class="wire-label">Contraseña</span><div class="wire-input">••••••••</div></div>
+          <div class="wire-input-group"><span class="wire-label">Confirmar contraseña</span><div class="wire-input">••••••••</div></div>
+          <label class="wire-checkbox"><span class="wire-checkbox-box"></span>Acepto términos y condiciones</label>
+          <button class="wire-button wire-button--primary">Crear cuenta</button>
+          <p class="wire-text-sm" style="text-align:center;">Usa un correo válido para recibir confirmaciones</p>
+          <p class="wire-text" style="text-align:center;"><strong>Ya tengo una cuenta</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 04. SELECCIÓN DE TIPO DE USUARIO -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Onboarding</span>
+      <p class="screen-title">04. Selección de tipo de usuario</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header"><span class="phone-header-title">Selecciona tu perfil</span></div>
+        <div class="phone-content">
+          <p class="wire-text">Elige cómo usarás EcoMove</p>
+          <div class="wire-card wire-card--selected">
+            <div class="placeholder-icon"></div>
+            <h3 class="wire-h3">Eco-usuario</h3>
+            <p class="wire-text">Registra viajes sostenibles, reduce CO₂ y gana Eco-Créditos</p>
+            <button class="wire-button wire-button--primary">Continuar como eco-usuario</button>
+          </div>
+          <div class="wire-card">
+            <div class="placeholder-icon"></div>
+            <h3 class="wire-h3">Consultor ambiental</h3>
+            <p class="wire-text">Analiza datos ambientales, dashboards y reportes</p>
+            <button class="wire-button wire-button--secondary">Continuar como consultor</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 05. PERMISO DE UBICACIÓN -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Onboarding</span>
+      <p class="screen-title">05. Permiso de ubicación</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header">
+          <span class="phone-header-back">←</span>
+          <span class="phone-header-title">Activa tu ubicación</span>
+        </div>
+        <div class="phone-content">
+          <div class="placeholder-icon placeholder-icon--lg placeholder-icon--circle" style="align-self:center;"></div>
+          <p class="wire-text" style="text-align:center;">EcoMove necesita tu ubicación para registrar trayectos sostenibles y calcular tu impacto ambiental</p>
+          <div class="wire-card">
+            <div class="list-item"><span class="placeholder-icon placeholder-icon--sm"></span><span class="wire-text">Registrar distancia</span></div>
+            <div class="list-item"><span class="placeholder-icon placeholder-icon--sm"></span><span class="wire-text">Calcular CO₂ reducido</span></div>
+            <div class="list-item"><span class="placeholder-icon placeholder-icon--sm"></span><span class="wire-text">Validar trayectos sostenibles</span></div>
+          </div>
+          <div style="margin-top:auto; display:flex; flex-direction:column; gap:10px;">
+            <button class="wire-button wire-button--primary">Permitir ubicación</button>
+            <button class="wire-button wire-button--secondary">Ahora no</button>
+            <p class="wire-text-sm" style="text-align:center;">Puedes cambiar este permiso luego desde configuración</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 06. INICIO ECO-USUARIO -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Eco-usuario</span>
+      <p class="screen-title">06. Inicio eco-usuario</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header">
+          <div class="avatar-wire avatar-wire--sm"></div>
+          <span class="phone-header-title">Hola, Carlos</span>
+        </div>
+        <div class="phone-content">
+          <div class="metric-box"><span class="wire-label">CO₂ reducido total</span><strong>3.8 kg</strong></div>
+          <div class="metric-grid">
+            <div class="metric-box"><span class="wire-label">Eco-Créditos</span><strong>480 pts</strong></div>
+            <div class="metric-box"><span class="wire-label">Trayectos</span><strong>12</strong></div>
+          </div>
+          <button class="wire-button wire-button--primary">Iniciar viaje sostenible</button>
+          <div>
+            <span class="wire-label">Último viaje</span>
+            <div class="wire-card" style="margin-top:8px;">
+              <div class="wire-card-row"><span class="wire-text">Bicicleta</span><span class="wire-text">2.4 km</span></div>
+              <div class="wire-card-row"><span class="wire-text">CO₂ reducido</span><span class="wire-text">0.46 kg</span></div>
+              <div class="wire-card-row"><span class="wire-text">Eco-Créditos</span><span class="wire-text">+24</span></div>
+            </div>
+          </div>
+        </div>
+        <nav class="bottom-nav">
+          <div class="bottom-nav-item bottom-nav-item--active"><span class="placeholder-icon"></span><span>Inicio</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Mapa</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Viajes</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Recompensas</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Perfil</span></div>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 07. SELECCIÓN DE MEDIO SOSTENIBLE -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Eco-usuario</span>
+      <p class="screen-title">07. Selección de medio sostenible</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header"><span class="phone-header-title">Selecciona tu medio</span></div>
+        <div class="phone-content">
+          <p class="wire-text">Elige cómo realizarás tu trayecto</p>
+          <div class="wire-card">
+            <div class="option-row"><span class="placeholder-icon"></span><div><h3 class="wire-h3">Caminata</h3><p class="wire-text-sm">Ideal para trayectos cortos</p></div></div>
+          </div>
+          <div class="wire-card wire-card--selected">
+            <div class="option-row"><span class="placeholder-icon"></span><div><h3 class="wire-h3">Bicicleta</h3><p class="wire-text-sm">Rápido y sostenible</p></div></div>
+          </div>
+          <div class="wire-card">
+            <div class="option-row"><span class="placeholder-icon"></span><div><h3 class="wire-h3">Scooter eléctrico</h3><p class="wire-text-sm">Movilidad ligera</p></div></div>
+          </div>
+          <div style="margin-top:auto; display:flex; flex-direction:column; gap:10px;">
+            <button class="wire-button wire-button--primary">Continuar</button>
+            <button class="wire-button wire-button--ghost">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 08. MAPA / RUTAS SOSTENIBLES -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Eco-usuario</span>
+      <p class="screen-title">08. Mapa / Rutas sostenibles</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header">
+          <span class="phone-header-back">←</span>
+          <span class="phone-header-title">Ruta sostenible</span>
+        </div>
+        <div class="phone-content">
+          <div class="placeholder-map placeholder-map--lg">
+            <div class="map-route" style="top:34px;left:24px;width:120px;transform:rotate(28deg);"></div>
+            <div class="map-route" style="top:90px;left:130px;width:122px;transform:rotate(30deg);"></div>
+            <div class="map-point" style="top:28px;left:18px;"></div>
+            <div class="map-point map-point--end" style="top:145px;left:230px;"></div>
+            <div class="map-label" style="top:8px;left:8px;">Inicio</div>
+            <div class="map-label" style="top:160px;left:190px;">Destino</div>
+          </div>
+          <div class="wire-card">
+            <div class="wire-card-row"><span class="wire-text">Origen</span><span class="wire-text">Ubicación actual</span></div>
+            <div class="wire-card-row"><span class="wire-text">Destino</span><span class="wire-text">Universidad / Trabajo</span></div>
+          </div>
+          <div class="route-card route-card--selected">
+            <div class="wire-card-row"><h3 class="wire-h3">Ruta rápida</h3><span class="wire-text-sm">Seleccionada</span></div>
+            <div class="wire-card-row"><span class="wire-text-sm">Tiempo</span><span class="wire-text">15 min</span></div>
+            <div class="wire-card-row"><span class="wire-text-sm">Distancia</span><span class="wire-text">2.1 km</span></div>
+            <div class="wire-card-row"><span class="wire-text-sm">CO₂ evitado</span><span class="wire-text">0.40 kg</span></div>
+          </div>
+          <div class="route-card">
+            <div class="wire-card-row"><h3 class="wire-h3">Ruta segura</h3></div>
+            <div class="wire-card-row"><span class="wire-text-sm">Tiempo</span><span class="wire-text">18 min</span></div>
+            <div class="wire-card-row"><span class="wire-text-sm">Distancia</span><span class="wire-text">2.4 km</span></div>
+            <p class="wire-text-sm">Evita zonas reportadas</p>
+          </div>
+          <div class="route-card">
+            <div class="wire-card-row"><h3 class="wire-h3">Ruta eco</h3><span class="chip chip--active">Prioriza ciclovías</span></div>
+            <div class="wire-card-row"><span class="wire-text-sm">Tiempo</span><span class="wire-text">20 min</span></div>
+            <div class="wire-card-row"><span class="wire-text-sm">Distancia</span><span class="wire-text">2.6 km</span></div>
+            <div class="wire-card-row"><span class="wire-text-sm">CO₂ evitado</span><span class="wire-text">0.50 kg</span></div>
+          </div>
+          <button class="wire-button wire-button--primary">Iniciar viaje</button>
+          <button class="wire-button wire-button--ghost">Recalcular ruta</button>
+        </div>
+        <nav class="bottom-nav">
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Inicio</span></div>
+          <div class="bottom-nav-item bottom-nav-item--active"><span class="placeholder-icon"></span><span>Mapa</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Viajes</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Recompensas</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Perfil</span></div>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 09. VIAJE EN CURSO -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Eco-usuario</span>
+      <p class="screen-title">09. Viaje en curso</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header">
+          <span class="phone-header-title">Viaje en curso</span>
+          <span class="phone-header-side">Registrando</span>
+        </div>
+        <div class="phone-content">
+          <div class="placeholder-map">
+            <div class="map-route" style="top:60px;left:20px;width:200px;transform:rotate(15deg);"></div>
+            <div class="map-point" style="top:54px;left:14px;"></div>
+            <div class="map-point map-point--end" style="top:110px;left:210px;"></div>
+          </div>
+          <div class="metric-grid">
+            <div class="metric-box"><span class="wire-label">Distancia</span><strong>2.4 km</strong></div>
+            <div class="metric-box"><span class="wire-label">Tiempo</span><strong>18 min</strong></div>
+            <div class="metric-box"><span class="wire-label">CO₂ reducido</span><strong>0.46 kg</strong></div>
+            <div class="metric-box"><span class="wire-label">Eco-Créditos estimados</span><strong>+24</strong></div>
+          </div>
+          <p class="wire-text-sm" style="text-align:center;">Pendientes de validación</p>
+          <div class="progress-track"><div class="progress-fill-wire" style="width:55%"></div></div>
+          <div class="status-pill"><span class="status-pill-dot"></span>Seguimiento en segundo plano activo</div>
+          <button class="wire-button wire-button--primary">Pausar</button>
+          <button class="wire-button wire-button--secondary">Finalizar viaje</button>
+          <p class="wire-text-sm" style="text-align:center;">Puedes usar otras aplicaciones. EcoMove continuará registrando el viaje en segundo plano mientras la ubicación permanezca habilitada.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 10. VIAJE PAUSADO -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Eco-usuario</span>
+      <p class="screen-title">10. Viaje pausado</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header"><span class="phone-header-title">Viaje pausado</span></div>
+        <div class="phone-content">
+          <div class="wire-card" style="text-align:center;">
+            <h3 class="wire-h3">Pausa activa</h3>
+            <p class="wire-text">El registro del trayecto se ha detenido temporalmente</p>
+          </div>
+          <div class="metric-grid">
+            <div class="metric-box"><span class="wire-label">Distancia</span><strong>1.6 km</strong></div>
+            <div class="metric-box"><span class="wire-label">Tiempo</span><strong>12 min</strong></div>
+            <div class="metric-box"><span class="wire-label">CO₂ reducido</span><strong>0.3 kg</strong></div>
+            <div class="metric-box"><span class="wire-label">Eco-Créditos estimados</span><strong>+16</strong></div>
+          </div>
+          <p class="wire-text-sm" style="text-align:center;">Pendientes de validación</p>
+          <button class="wire-button wire-button--primary">Reanudar</button>
+          <button class="wire-button wire-button--secondary">Finalizar viaje</button>
+          <button class="wire-button wire-button--ghost">Cancelar viaje</button>
+          <p class="wire-text-sm" style="text-align:center;">Si finalizas ahora, se guardará el recorrido registrado hasta este punto</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 11. RESUMEN DE VIAJE -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Eco-usuario</span>
+      <p class="screen-title">11. Resumen de viaje</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header"><span class="phone-header-title">Resumen de viaje</span></div>
+        <div class="phone-content">
+          <div class="wire-card" style="text-align:center;">
+            <div class="placeholder-icon placeholder-icon--lg placeholder-icon--circle" style="margin:0 auto;"></div>
+            <h3 class="wire-h3">¡Viaje sostenible completado!</h3>
+          </div>
+          <div class="status-pill status-pill--center"><span class="status-pill-dot"></span>Trayecto validado</div>
+          <div class="wire-card">
+            <div class="wire-card-row"><span class="wire-text">Medio</span><span class="wire-text">Bicicleta</span></div>
+            <div class="wire-card-row"><span class="wire-text">Distancia</span><span class="wire-text">2.4 km</span></div>
+            <div class="wire-card-row"><span class="wire-text">Duración</span><span class="wire-text">18 min</span></div>
+            <div class="wire-card-row"><span class="wire-text">CO₂ reducido</span><span class="wire-text">0.46 kg</span></div>
+          </div>
+          <div class="placeholder-chart placeholder-chart--circle"><div class="donut"><div class="donut-hole">+24</div></div></div>
+          <p class="wire-text-sm" style="text-align:center;">+24 Eco-Créditos acreditados</p>
+          <p class="wire-text-sm" style="text-align:center;">Viaje guardado en tu historial</p>
+          <button class="wire-button wire-button--primary">Ver recompensas</button>
+          <button class="wire-button wire-button--secondary">Ver historial</button>
+          <button class="wire-button wire-button--ghost">Compartir resultado</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 12. HISTORIAL DE VIAJES -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Eco-usuario</span>
+      <p class="screen-title">12. Historial de viajes</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header"><span class="phone-header-title">Historial de viajes</span></div>
+        <div class="phone-content">
+          <div class="chip-row">
+            <span class="chip chip--active">Semana</span>
+            <span class="chip">Mes</span>
+            <span class="chip">Medio</span>
+          </div>
+          <div class="wire-card">
+            <div class="wire-card-row"><span class="wire-text"><strong>03 jul</strong> · Bicicleta</span><span class="wire-text">2.4 km</span></div>
+            <div class="wire-card-row"><span class="wire-text-sm">CO₂ reducido: 0.46 kg</span><span class="wire-text-sm">+24 pts</span></div>
+            <a class="wire-text-sm">Ver detalle</a>
+          </div>
+          <div class="wire-card">
+            <div class="wire-card-row"><span class="wire-text"><strong>02 jul</strong> · Caminata</span><span class="wire-text">1.1 km</span></div>
+            <div class="wire-card-row"><span class="wire-text-sm">CO₂ reducido: 0.18 kg</span><span class="wire-text-sm">+10 pts</span></div>
+            <a class="wire-text-sm">Ver detalle</a>
+          </div>
+          <div class="wire-card">
+            <div class="wire-card-row"><span class="wire-text"><strong>30 jun</strong> · Scooter</span><span class="wire-text">3.2 km</span></div>
+            <div class="wire-card-row"><span class="wire-text-sm">CO₂ reducido: 0.58 kg</span><span class="wire-text-sm">+28 pts</span></div>
+            <a class="wire-text-sm">Ver detalle</a>
+          </div>
+          <div class="wire-card" style="text-align:center; background:var(--w-gray-100);">
+            <span class="wire-text">Total reducido este mes: <strong>3.8 kg CO₂</strong></span>
+          </div>
+        </div>
+        <nav class="bottom-nav">
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Inicio</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Mapa</span></div>
+          <div class="bottom-nav-item bottom-nav-item--active"><span class="placeholder-icon"></span><span>Viajes</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Recompensas</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Perfil</span></div>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 13. PROGRESO AMBIENTAL / LOGROS -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Eco-usuario</span>
+      <p class="screen-title">13. Progreso ambiental / Logros</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header"><span class="phone-header-title">Progreso ambiental</span></div>
+        <div class="phone-content">
+          <div class="chip-row">
+            <span class="chip chip--active">Semana</span>
+            <span class="chip">Mes</span>
+          </div>
+          <div class="metric-box"><span class="wire-label">Meta mensual de CO₂</span><strong>3.8 de 5 kg</strong></div>
+          <div class="progress-track"><div class="progress-fill-wire" style="width:76%"></div></div>
+          <div class="placeholder-chart">
+            <div class="chart-bar" style="height:40%"></div>
+            <div class="chart-bar" style="height:65%"></div>
+            <div class="chart-bar" style="height:50%"></div>
+            <div class="chart-bar" style="height:80%"></div>
+            <div class="chart-bar" style="height:60%"></div>
+          </div>
+          <div>
+            <span class="wire-label">Equivalencia ambiental referencial</span>
+            <div class="wire-card" style="margin-top:8px;">
+              <p class="wire-text">Equivale a plantar 4 árboles</p>
+              <p class="wire-text">Equivale a evitar 9 km en auto</p>
+            </div>
+          </div>
+          <div>
+            <span class="wire-label">Logros</span>
+            <div class="badge-row" style="margin-top:8px;">
+              <div class="badge-wire"><div class="placeholder-icon placeholder-icon--circle"></div><span>Primer viaje</span></div>
+              <div class="badge-wire"><div class="placeholder-icon placeholder-icon--circle"></div><span>10 km sostenibles</span></div>
+              <div class="badge-wire"><div class="placeholder-icon placeholder-icon--circle"></div><span>100 Eco-Créditos</span></div>
+            </div>
+          </div>
+          <button class="wire-button wire-button--secondary">Ver historial</button>
+        </div>
+        <nav class="bottom-nav">
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Inicio</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Mapa</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Viajes</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Recompensas</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Perfil</span></div>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 14. RECOMPENSAS / MARKETPLACE -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Eco-usuario</span>
+      <p class="screen-title">14. Recompensas / Marketplace</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header">
+          <span class="phone-header-title">Recompensas</span>
+          <span class="phone-header-side">480 pts</span>
+        </div>
+        <div class="phone-content">
+          <div class="tab-row">
+            <span class="tab tab--active">Beneficios</span>
+            <span class="tab">Movimientos</span>
+            <span class="tab">Mis canjes</span>
+          </div>
+          <div class="wire-input">Buscar beneficio</div>
+          <div class="chip-row">
+            <span class="chip chip--active">Comida</span>
+            <span class="chip">Transporte</span>
+            <span class="chip">Educación</span>
+            <span class="chip">Eco tiendas</span>
+          </div>
+          <div class="wire-card">
+            <div class="option-row"><span class="placeholder-icon"></span><div style="flex:1;"><h3 class="wire-h3">Descuento cafetería</h3><p class="wire-text-sm">250 pts</p></div><button class="wire-button wire-button--sm wire-button--secondary">Ver</button></div>
+          </div>
+          <div class="wire-card">
+            <div class="option-row"><span class="placeholder-icon"></span><div style="flex:1;"><h3 class="wire-h3">Pase de bus gratis</h3><p class="wire-text-sm">180 pts</p></div><button class="wire-button wire-button--sm wire-button--secondary">Ver</button></div>
+          </div>
+          <div class="wire-card">
+            <div class="option-row"><span class="placeholder-icon"></span><div style="flex:1;"><h3 class="wire-h3">Curso online eco</h3><p class="wire-text-sm">320 pts</p></div><button class="wire-button wire-button--sm wire-button--secondary">Ver</button></div>
+          </div>
+          <p class="wire-text-sm" style="text-align:center;">Canjea tus Eco-Créditos por beneficios reales</p>
+
+          <div class="tab-panel-preview">
+            <span class="wire-label">Vista: Movimientos</span>
+            <div class="wire-card" style="margin-top:8px;">
+              <div class="wire-card-row"><span class="wire-text">03 jul · Viaje en bicicleta</span><span class="wire-text">+24 pts</span></div>
+              <div class="wire-card-row"><span class="wire-text">01 jul · Canje descuento cafetería</span><span class="wire-text">-250 pts</span></div>
+              <div class="wire-card-row"><span class="wire-text">28 jun · Viaje caminando</span><span class="wire-text">+10 pts</span></div>
+            </div>
+          </div>
+          <div class="tab-panel-preview">
+            <span class="wire-label">Vista: Mis canjes</span>
+            <div class="wire-card" style="margin-top:8px;">
+              <div class="wire-card-row"><span class="wire-text">Descuento cafetería</span><span class="wire-text-sm">01 jul</span></div>
+              <div class="wire-card-row"><span class="wire-text-sm">Estado: Usado</span><span class="wire-text-sm">ECO-2026-001</span></div>
+            </div>
+            <div class="wire-card">
+              <div class="wire-card-row"><span class="wire-text">Curso online eco</span><span class="wire-text-sm">28 jun</span></div>
+              <div class="wire-card-row"><span class="wire-text-sm">Estado: Pendiente</span><span class="wire-text-sm">ECO-2026-002</span></div>
+            </div>
+          </div>
+        </div>
+        <nav class="bottom-nav">
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Inicio</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Mapa</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Viajes</span></div>
+          <div class="bottom-nav-item bottom-nav-item--active"><span class="placeholder-icon"></span><span>Recompensas</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Perfil</span></div>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 15. DETALLE DE BENEFICIO -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Eco-usuario</span>
+      <p class="screen-title">15. Detalle de beneficio</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header">
+          <span class="phone-header-back">←</span>
+          <span class="phone-header-title">Detalle del beneficio</span>
+        </div>
+        <div class="phone-content">
+          <div class="placeholder-icon" style="width:100%;height:150px;border-radius:12px;"></div>
+          <h2 class="wire-h2">Descuento en cafetería sostenible</h2>
+          <div>
+            <span class="wire-label">Costo</span>
+            <strong style="display:block; font-size:16px;">250 Eco-Créditos</strong>
+          </div>
+          <p class="wire-text">Obtén un descuento usando tus puntos acumulados</p>
+          <div class="wire-card">
+            <span class="wire-label">Condiciones</span>
+            <p class="wire-text-sm">Válido hasta el 31/08/2026</p>
+            <p class="wire-text-sm">Uso único</p>
+            <p class="wire-text-sm">Sujeto a disponibilidad</p>
+          </div>
+          <div class="wire-card-row"><span class="wire-text">Saldo actual</span><span class="wire-text">480 pts</span></div>
+          <button class="wire-button wire-button--primary">Canjear beneficio</button>
+          <button class="wire-button wire-button--secondary">Guardar para después</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 16. CONFIRMACIÓN DE CANJE -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Eco-usuario</span>
+      <p class="screen-title">16. Confirmación de canje</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header"><span class="phone-header-title">Canje confirmado</span></div>
+        <div class="phone-content phone-content--centered">
+          <div class="placeholder-icon placeholder-icon--lg placeholder-icon--circle"></div>
+          <h2 class="wire-h2">¡Canje exitoso!</h2>
+          <div class="wire-card" style="width:100%; text-align:left;">
+            <div class="wire-card-row"><span class="wire-text">Beneficio</span><span class="wire-text">Desc. cafetería</span></div>
+            <div class="wire-card-row"><span class="wire-text">Eco-Créditos usados</span><span class="wire-text">250 pts</span></div>
+            <div class="wire-card-row"><span class="wire-text">Saldo restante</span><span class="wire-text">230 pts</span></div>
+          </div>
+          <div class="wire-card" style="width:100%;">
+            <span class="wire-label">Código de canje</span>
+            <strong style="display:block; font-size:16px; letter-spacing:1px;">ECO-2026-001</strong>
+          </div>
+          <div style="width:100%; display:flex; flex-direction:column; gap:10px;">
+            <button class="wire-button wire-button--primary">Ver mis canjes</button>
+            <button class="wire-button wire-button--secondary">Volver al inicio</button>
+          </div>
+          <p class="wire-text-sm">Ver mis canjes te lleva a Recompensas → pestaña Mis canjes</p>
+          <p class="wire-text-sm">Presenta este código al comercio aliado</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 17. PERFIL Y PREFERENCIAS -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Eco-usuario</span>
+      <p class="screen-title">17. Perfil y preferencias</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header"><span class="phone-header-title">Perfil</span></div>
+        <div class="phone-content">
+          <div class="option-row">
+            <div class="avatar-wire"></div>
+            <div><h3 class="wire-h3">Carlos Mendoza</h3><p class="wire-text-sm">carlos@email.com</p></div>
+          </div>
+          <div class="wire-card" style="padding:4px 16px;">
+            <div class="list-item"><span class="wire-text">Datos personales</span><span class="list-item-arrow">›</span></div>
+            <div class="list-item"><span class="wire-text">Medios favoritos</span><span class="list-item-arrow">›</span></div>
+            <div class="list-item"><span class="wire-text">Preferencias de ruta</span><span class="list-item-arrow">›</span></div>
+            <div class="list-item"><span class="wire-text">Seguridad y privacidad</span><span class="list-item-arrow">›</span></div>
+            <div class="list-item"><span class="wire-text">Notificaciones</span><span class="list-item-arrow">›</span></div>
+          </div>
+          <div class="wire-card">
+            <div class="switch-row"><span class="wire-text">Evitar zonas inseguras</span><span class="switch-wire switch-wire--on"></span></div>
+            <div class="switch-row"><span class="wire-text">Priorizar ciclovías</span><span class="switch-wire"></span></div>
+            <div class="switch-row"><span class="wire-text">Priorizar menor CO₂</span><span class="switch-wire switch-wire--on"></span></div>
+          </div>
+          <button class="wire-button wire-button--secondary">Editar perfil</button>
+          <button class="wire-button wire-button--ghost">Cerrar sesión</button>
+        </div>
+        <nav class="bottom-nav">
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Inicio</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Mapa</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Viajes</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Recompensas</span></div>
+          <div class="bottom-nav-item bottom-nav-item--active"><span class="placeholder-icon"></span><span>Perfil</span></div>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 18. DASHBOARD CONSULTOR -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Consultor ambiental</span>
+      <p class="screen-title">18. Dashboard consultor</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header">
+          <div>
+            <span class="phone-header-title">Dashboard ambiental</span>
+            <div class="phone-header-sub">Miraflores · últimos 30 días</div>
+          </div>
+          <span class="phone-header-side">Ricardo V.</span>
+        </div>
+        <div class="phone-content">
+          <div class="kpi-grid">
+            <div class="kpi-card"><span class="wire-label">CO₂ reducido total</span><strong>18.2 t</strong></div>
+            <div class="kpi-card"><span class="wire-label">Trayectos registrados</span><strong>6,340</strong></div>
+            <div class="kpi-card"><span class="wire-label">Eco-usuarios activos</span><strong>2,500</strong></div>
+            <div class="kpi-card"><span class="wire-label">Zona mayor uso</span><strong>Miraflores</strong></div>
+          </div>
+          <div class="placeholder-chart">
+            <div class="chart-bar" style="height:35%"></div>
+            <div class="chart-bar" style="height:55%"></div>
+            <div class="chart-bar" style="height:45%"></div>
+            <div class="chart-bar" style="height:70%"></div>
+            <div class="chart-bar" style="height:60%"></div>
+            <div class="chart-bar" style="height:85%"></div>
+          </div>
+          <div>
+            <span class="wire-label">Tendencias de movilidad</span>
+            <div class="wire-card" style="margin-top:8px;">
+              <div class="wire-card-row"><span class="wire-text">Caminata</span><span class="wire-text">▲ +10%</span></div>
+              <div class="wire-card-row"><span class="wire-text">Bicicleta</span><span class="wire-text">▲ +15%</span></div>
+              <div class="wire-card-row"><span class="wire-text">Scooter eléctrico</span><span class="wire-text">▲ +21%</span></div>
+            </div>
+          </div>
+          <div class="placeholder-map"></div>
+          <button class="wire-button wire-button--primary">Aplicar filtros</button>
+          <button class="wire-button wire-button--secondary">Generar reporte</button>
+        </div>
+        <nav class="bottom-nav">
+          <div class="bottom-nav-item bottom-nav-item--active"><span class="placeholder-icon"></span><span>Dashboard</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Mapa</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Reportes</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Perfil</span></div>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 19. FILTROS / MAPA DE CALOR -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Consultor ambiental</span>
+      <p class="screen-title">19. Filtros / Mapa de calor</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header"><span class="phone-header-title">Mapa de calor</span></div>
+        <div class="phone-content">
+          <div class="wire-input-group"><span class="wire-label">Zona</span><div class="wire-input">Todas las zonas</div></div>
+          <div class="wire-input-group"><span class="wire-label">Fecha</span><div class="wire-input">Últimos 30 días</div></div>
+          <div class="wire-input-group"><span class="wire-label">Horario</span><div class="wire-input">Todo el día</div></div>
+          <div class="wire-input-group"><span class="wire-label">Tipo de transporte</span><div class="wire-input">Todos</div></div>
+          <div style="display:flex; gap:10px;">
+            <button class="wire-button wire-button--primary" style="flex:1;">Aplicar filtros</button>
+            <button class="wire-button wire-button--secondary" style="flex:1;">Limpiar</button>
+          </div>
+          <div class="placeholder-heatmap">
+            <div class="heat-cell"></div><div class="heat-cell--md"></div><div class="heat-cell"></div><div class="heat-cell--hi"></div><div class="heat-cell--md"></div><div class="heat-cell"></div>
+            <div class="heat-cell--md"></div><div class="heat-cell--hi"></div><div class="heat-cell--hi"></div><div class="heat-cell--md"></div><div class="heat-cell"></div><div class="heat-cell--md"></div>
+            <div class="heat-cell"></div><div class="heat-cell--md"></div><div class="heat-cell--hi"></div><div class="heat-cell--md"></div><div class="heat-cell"></div><div class="heat-cell"></div>
+            <div class="heat-cell--md"></div><div class="heat-cell"></div><div class="heat-cell--md"></div><div class="heat-cell"></div><div class="heat-cell--md"></div><div class="heat-cell"></div>
+          </div>
+          <div class="chip-row">
+            <span class="chip">Bajo</span>
+            <span class="chip" style="background:var(--w-gray-500); color:var(--w-white); border-color:var(--w-gray-500);">Medio</span>
+            <span class="chip" style="background:var(--w-gray-800); color:var(--w-white); border-color:var(--w-gray-800);">Alto</span>
+          </div>
+          <div class="wire-card">
+            <p class="wire-text">Zona con mayor uso: <strong>Miraflores</strong></p>
+            <p class="wire-text">Trayectos analizados: <strong>6,340</strong></p>
+            <p class="wire-text">CO₂ reducido: <strong>18.2 t</strong></p>
+          </div>
+          <button class="wire-button wire-button--secondary">Generar reporte</button>
+        </div>
+        <nav class="bottom-nav">
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Dashboard</span></div>
+          <div class="bottom-nav-item bottom-nav-item--active"><span class="placeholder-icon"></span><span>Mapa</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Reportes</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Perfil</span></div>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 20. REPORTE AMBIENTAL / TRAZABILIDAD -->
+    <!-- ============================================================ -->
+    <div class="screen-card">
+      <span class="user-tag">Consultor ambiental</span>
+      <p class="screen-title">20. Reporte ambiental / Trazabilidad</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header"><span class="phone-header-title">Reporte ambiental</span></div>
+        <div class="phone-content">
+          <div class="wire-card">
+            <div class="wire-card-row"><span class="wire-text">Periodo</span><span class="wire-text">Últimos 30 días</span></div>
+            <div class="wire-card-row"><span class="wire-text">Zona</span><span class="wire-text">Miraflores</span></div>
+            <div class="wire-card-row"><span class="wire-text">Transporte</span><span class="wire-text">Todos</span></div>
+            <div class="wire-card-row"><span class="wire-text">Total trayectos</span><span class="wire-text">6,340</span></div>
+            <div class="wire-card-row"><span class="wire-text">CO₂ reducido</span><span class="wire-text">18.2 t</span></div>
+          </div>
+          <div>
+            <span class="wire-label">Trazabilidad</span>
+            <div class="wire-card" style="margin-top:8px;">
+              <p class="wire-text-sm">Fuente de datos: registros GPS validados</p>
+              <p class="wire-text-sm">Filtros aplicados: zona, fecha, transporte</p>
+              <p class="wire-text-sm">Fecha de generación: 04/07/2026</p>
+              <p class="wire-text-sm">Criterios de validación: trayecto ≥ 200 m</p>
+            </div>
+          </div>
+          <div class="placeholder-chart">
+            <div class="chart-bar" style="height:50%"></div>
+            <div class="chart-bar" style="height:70%"></div>
+            <div class="chart-bar" style="height:40%"></div>
+            <div class="chart-bar" style="height:85%"></div>
+            <div class="chart-bar" style="height:60%"></div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="wire-button wire-button--secondary wire-button--sm">Exportar PDF</button>
+            <button class="wire-button wire-button--secondary wire-button--sm">Exportar Excel</button>
+          </div>
+          <button class="wire-button wire-button--ghost">Compartir reporte</button>
+          <p class="wire-text-sm" style="text-align:center;">Reporte generado con datos agregados y trazables</p>
+        </div>
+        <nav class="bottom-nav">
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Dashboard</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Mapa</span></div>
+          <div class="bottom-nav-item bottom-nav-item--active"><span class="placeholder-icon"></span><span>Reportes</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Perfil</span></div>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 21. PERFIL CONSULTOR -->
+    <!-- ============================================================ -->
+    <div class="screen-card" id="screen-21">
+      <span class="user-tag">Consultor ambiental</span>
+      <p class="screen-title">21. Perfil consultor</p>
+      <div class="phone-frame">
+        <div class="phone-statusbar"><span>9:41</span><span class="status-icons">●●● ▲ ▮</span></div>
+        <div class="phone-header"><span class="phone-header-title">Perfil</span></div>
+        <div class="phone-content">
+          <div class="option-row">
+            <div class="avatar-wire"></div>
+            <div><h3 class="wire-h3">Ricardo Valdivia</h3><p class="wire-text-sm">ricardo@consultora.com</p></div>
+          </div>
+          <div class="wire-card" style="padding:4px 16px;">
+            <div class="list-item"><span class="wire-text">Datos de la consultora</span><span class="list-item-arrow">›</span></div>
+            <div class="list-item"><span class="wire-text">Preferencias de reporte</span><span class="list-item-arrow">›</span></div>
+            <div class="list-item"><span class="wire-text">Notificaciones de alertas ambientales</span><span class="list-item-arrow">›</span></div>
+            <div class="list-item"><span class="wire-text">Seguridad y privacidad</span><span class="list-item-arrow">›</span></div>
+          </div>
+          <div class="wire-card">
+            <div class="switch-row"><span class="wire-text">Alertas de zonas críticas</span><span class="switch-wire switch-wire--on"></span></div>
+            <div class="switch-row"><span class="wire-text">Reportes automáticos mensuales</span><span class="switch-wire"></span></div>
+          </div>
+          <button class="wire-button wire-button--secondary">Editar perfil</button>
+          <button class="wire-button wire-button--ghost">Cerrar sesión</button>
+        </div>
+        <nav class="bottom-nav">
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Dashboard</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Mapa</span></div>
+          <div class="bottom-nav-item"><span class="placeholder-icon"></span><span>Reportes</span></div>
+          <div class="bottom-nav-item bottom-nav-item--active"><span class="placeholder-icon"></span><span>Perfil</span></div>
+        </nav>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
