@@ -33,7 +33,8 @@
       trips: [],
       redemptions: [],
       dashboard: { zone: 'all', period: '30', mode: 'all' },
-      membership: { status: 'none', activatedAt: null, trialEndsAt: null, renewsAt: null }
+      membership: { status: 'none', activatedAt: null, trialEndsAt: null, renewsAt: null },
+      auth: { loggedIn: false, name: null, email: null }
     };
   }
 
@@ -197,6 +198,143 @@
   }
 
   function rerenderCurrent() { if (activeViewId) navigateTo(activeViewId); }
+
+  /* =======================================================
+     AUTH — LOGIN / REGISTRO (pantallas 02-03 del wireflow)
+     Autenticación simulada, sin backend: valida campos y
+     transiciona. Compartida por ambos perfiles; la sesión se
+     recuerda en localStorage (state.auth.loggedIn).
+     ======================================================= */
+  function showAuthScreen(mode) {
+    currentProfile = null;
+    activeViewId = null;
+    const viewEl = $('#app-view');
+    const inner = document.createElement('div');
+    inner.className = 'app__view-inner';
+    viewEl.innerHTML = '';
+    viewEl.appendChild(inner);
+    if (mode === 'register') renderRegisterScreen(inner); else renderLoginScreen(inner);
+    $('#app-view-title').textContent = mode === 'register' ? 'Crear cuenta' : 'Iniciar sesión';
+    $('#app-credits-pill').hidden = true;
+    viewEl.scrollTop = 0;
+    renderNav();
+    updateBackgroundBanner();
+  }
+
+  function authField(id, label, type, placeholder) {
+    return '<div class="field"><label class="field__label" for="' + id + '">' + label + '</label>' +
+      '<input class="field__control" id="' + id + '" type="' + type + '" placeholder="' + placeholder + '"></div>';
+  }
+
+  function renderLoginScreen(container) {
+    container.innerHTML =
+      '<div class="auth">' +
+        '<header class="view-head auth__head">' +
+          '<span class="view-head__eyebrow">Bienvenido de vuelta</span>' +
+          '<h1 class="view-head__title">Iniciar sesión</h1>' +
+          '<p class="view-head__subtitle">Ingresa a tu cuenta para continuar.</p>' +
+        '</header>' +
+        '<div class="panel auth__panel">' +
+          authField('login-email', 'Correo electrónico', 'email', 'correo@ejemplo.com') +
+          authField('login-password', 'Contraseña', 'password', '••••••••') +
+          '<div class="auth__forgot-row">' +
+            '<button class="auth__link" type="button" data-action="auth-forgot">¿Olvidaste tu contraseña?</button>' +
+          '</div>' +
+          '<p class="form-state form-state--error auth__error" id="login-error" role="alert" hidden></p>' +
+          '<button class="app-btn app-btn--primary app-btn--block" type="button" data-action="auth-login">Ingresar</button>' +
+          '<button class="app-btn app-btn--secondary app-btn--block" type="button" data-action="auth-google">' +
+            '<span class="auth__gicon" aria-hidden="true">G</span> Continuar con Google</button>' +
+        '</div>' +
+        '<p class="auth__switch">¿No tienes cuenta? ' +
+          '<button class="auth__link" type="button" data-action="auth-goto-register">Registrarse</button></p>' +
+        '<p class="auth__hint">Al ingresar aceptas los términos y privacidad</p>' +
+      '</div>';
+  }
+
+  function renderRegisterScreen(container) {
+    container.innerHTML =
+      '<div class="auth">' +
+        '<button class="auth__back" type="button" data-action="auth-goto-login" ' +
+          'aria-label="Volver a iniciar sesión">←</button>' +
+        '<header class="view-head auth__head">' +
+          '<span class="view-head__eyebrow">Únete a EcoMove</span>' +
+          '<h1 class="view-head__title">Crear cuenta</h1>' +
+          '<p class="view-head__subtitle">Regístrate para empezar a moverte sostenible.</p>' +
+        '</header>' +
+        '<div class="panel auth__panel">' +
+          authField('reg-name', 'Nombre completo', 'text', 'Nombre y apellido') +
+          authField('reg-email', 'Correo electrónico', 'email', 'correo@ejemplo.com') +
+          authField('reg-password', 'Contraseña', 'password', '••••••••') +
+          authField('reg-password2', 'Confirmar contraseña', 'password', '••••••••') +
+          '<label class="auth__terms"><input type="checkbox" id="reg-terms"> Acepto términos y condiciones</label>' +
+          '<p class="form-state form-state--error auth__error" id="reg-error" role="alert" hidden></p>' +
+          '<button class="app-btn app-btn--primary app-btn--block" type="button" id="reg-submit" ' +
+            'data-action="auth-register" disabled>Crear cuenta</button>' +
+          '<p class="auth__hint">Usa un correo válido para recibir confirmaciones</p>' +
+        '</div>' +
+        '<p class="auth__switch">' +
+          '<button class="auth__link" type="button" data-action="auth-goto-login">Ya tengo una cuenta</button></p>' +
+      '</div>';
+  }
+
+  function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  function showAuthError(id, message) {
+    const el = $('#' + id);
+    if (!el) return;
+    el.textContent = message;
+    el.hidden = false;
+  }
+
+  function submitLogin() {
+    const email = ($('#login-email').value || '').trim();
+    const password = $('#login-password').value || '';
+    if (!email || !password) {
+      showAuthError('login-error', 'Completa correo y contraseña para ingresar.');
+      return;
+    }
+    if (!isValidEmail(email)) {
+      showAuthError('login-error', 'Ingresa un correo electrónico válido.');
+      return;
+    }
+    completeAuth(email, null, 'Sesión iniciada');
+  }
+
+  function submitRegister() {
+    const name = ($('#reg-name').value || '').trim();
+    const email = ($('#reg-email').value || '').trim();
+    const password = $('#reg-password').value || '';
+    const password2 = $('#reg-password2').value || '';
+    if (!name || !email || !password || !password2) {
+      showAuthError('reg-error', 'Completa todos los campos para crear tu cuenta.');
+      return;
+    }
+    if (!isValidEmail(email)) {
+      showAuthError('reg-error', 'Ingresa un correo electrónico válido.');
+      return;
+    }
+    if (password !== password2) {
+      showAuthError('reg-error', 'Las contraseñas no coinciden.');
+      return;
+    }
+    if (!$('#reg-terms').checked) {
+      showAuthError('reg-error', 'Debes aceptar los términos y condiciones.');
+      return;
+    }
+    completeAuth(email, name, 'Cuenta creada');
+  }
+
+  function completeAuth(email, name, toastTitle) {
+    state.auth.loggedIn = true;
+    state.auth.email = email;
+    if (name) state.auth.name = name;
+    saveState();
+    showToast({ type: 'success', icon: '👋', title: toastTitle,
+      body: 'Bienvenido a EcoMove. Elige cómo quieres continuar.' });
+    showProfileSelection();
+  }
 
   /* =======================================================
      USER-TYPE SELECTION + PROFILE SCREENS
@@ -496,7 +634,8 @@
     $('#app-shell').hidden = false;
     document.body.classList.add('app-open');
     refreshCreditsPill();
-    showProfileSelection();     // siempre inicia en la selección de tipo de usuario
+    // sesión recordada: con login previo va directo a la selección de perfil
+    if (state.auth && state.auth.loggedIn) showProfileSelection(); else showAuthScreen('login');
     $('#app-view').focus();
   }
 
@@ -1063,14 +1202,32 @@
     'activate-trial': activateTrial,
     'open-payment': openMembershipPaymentModal,
     'confirm-payment': confirmMembershipPayment,
+    'auth-login': submitLogin,
+    'auth-google': submitLogin,   // decorativo: mismo comportamiento que "Ingresar" en el prototipo
+    'auth-register': submitRegister,
+    'auth-goto-register': function () { showAuthScreen('register'); },
+    'auth-goto-login': function () { showAuthScreen('login'); },
+    'auth-forgot': function () {
+      showToast({ type: 'success', icon: '🔐', title: 'Recuperación de contraseña',
+        body: 'Función disponible próximamente (prototipo).' });
+    },
     'select-eco': function () { selectProfile('eco'); },
     'select-consultant': function () { selectProfile('consultant'); },
     'change-profile': function () { showProfileSelection(); },
-    'logout': function () { closeApp(); showToast({ type: 'success', icon: '👋', title: 'Sesión cerrada', body: 'Vuelve pronto a moverte sostenible.' }); }
+    'logout': function () {
+      state.auth.loggedIn = false;
+      saveState();
+      closeApp();
+      showToast({ type: 'success', icon: '👋', title: 'Sesión cerrada', body: 'Vuelve pronto a moverte sostenible.' });
+    }
   };
 
   function handleAppChange(e) {
     if (e.target.id === 'simulate-fraud') simulateFraud = e.target.checked;
+    if (e.target.id === 'reg-terms') {
+      const submitBtn = $('#reg-submit');
+      if (submitBtn) submitBtn.disabled = !e.target.checked;
+    }
   }
 
   /* =======================================================
@@ -1084,8 +1241,12 @@
         btn.addEventListener('click', function () { openApp(); });
       }
       // CTA de la sección de membresía: entra directo al flujo de consultor
+      // (si no hay sesión, openApp muestra primero el login compartido)
       if (text === 'comenzar prueba gratis') {
-        btn.addEventListener('click', function () { openApp(); selectProfile('consultant'); });
+        btn.addEventListener('click', function () {
+          openApp();
+          if (state.auth && state.auth.loggedIn) selectProfile('consultant');
+        });
       }
     });
     // "Solicitar demo" (anchors) ya navegan al formulario de contacto por #hash.
